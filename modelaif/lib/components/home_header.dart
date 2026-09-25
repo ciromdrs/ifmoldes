@@ -13,6 +13,7 @@ class _HomeHeaderState extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    const gap = SizedBox(width: 4);
 
     return SafeArea(
       child: Padding(
@@ -26,7 +27,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                 widget.scaffoldKey.currentState?.openDrawer();
               },
             ),
-            const SizedBox(width: 4),
+            gap,
 
             // Campo de Busca centralizado
             Expanded(
@@ -56,7 +57,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                 ),
               ),
             ),
-            const SizedBox(width: 4),
+            gap,
 
             // Botão de Filtro
             IconButton(
