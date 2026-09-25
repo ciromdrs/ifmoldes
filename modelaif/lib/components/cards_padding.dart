@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'category_card.dart';
+import 'pattern_card.dart';
 import '../models/molde.dart';
 import '../screens/pattern_screen.dart';
 
@@ -23,10 +23,10 @@ class CardsPadding extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final Molde molde = _moldes[index];
-          return AnimatedCategoryCard(
+          return AnimatedPatternCard(
             title: molde.modelo,
             onTap: () {
-              // Navegação para a PatternScreen passando o nome da categoria
+              // Navegação para a PatternScreen passando o molde
               Navigator.push(
                 context,
                 MaterialPageRoute(
