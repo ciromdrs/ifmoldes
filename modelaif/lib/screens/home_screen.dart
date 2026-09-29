@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:diacritic/diacritic.dart';
 import '../components/nav_bar.dart';
 import '../components/home_header.dart';
 import '../components/fab_importar.dart';
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void filterMoldes(String value) {
     setState(() {
       filteredMoldes = moldesBase.where(
-        (Molde molde) => molde.modelo.toLowerCase().contains(value.toLowerCase())
+        (Molde molde) => removeDiacritics(molde.modelo.toLowerCase()).contains(value.toLowerCase())
       ).toList();
     });
   }
