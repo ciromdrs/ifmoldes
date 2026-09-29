@@ -21,7 +21,7 @@ class Molde {
   String imagem;
 
   /// Manequim com medidas padrão para este molde.
-  TabelaDeMedidas manequimPadrao;
+  TabelaDeMedidas medidasPadrao;
 
   /// Cria uma instância de [Molde].
   Molde({
@@ -29,7 +29,7 @@ class Molde {
     required this.modelista,
     required this.referencia,
     required this.imagem,
-    required this.manequimPadrao,
+    required this.medidasPadrao,
     required this.partes,
   });
 }
@@ -90,7 +90,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Ana Silva",
     referencia: "S2020",
     imagem: "moldes/saia_reta/saia_reta__Principal.png",
-    manequimPadrao: TabelaDeMedidas(
+    medidasPadrao: TabelaDeMedidas(
       medidas: {
         Medidas.quadril: 100,
         Medidas.cintura: 88,
@@ -189,7 +189,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Bottini",
     referencia: "C2020",
     imagem: "exmplo.png",
-    manequimPadrao: TabelaDeMedidas(),
+    medidasPadrao: TabelaDeMedidas(),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -204,7 +204,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Modelista Exemplo",
     referencia: "C2020",
     imagem: "exmplo.png",
-    manequimPadrao: TabelaDeMedidas(),
+    medidasPadrao: TabelaDeMedidas(),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -218,7 +218,7 @@ final List<Molde> moldesExemplo = [
     modelo: 'Vestido',
     modelista: "Modelista Exemplo",
     referencia: "V2020",
-    manequimPadrao: TabelaDeMedidas(),
+    medidasPadrao: TabelaDeMedidas(),
     imagem: "exmplo.png",
     partes: [
       Parte(
@@ -234,7 +234,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Modelista Exemplo",
     referencia: "S2020",
     imagem: "exmplo.png",
-    manequimPadrao: TabelaDeMedidas(),
+    medidasPadrao: TabelaDeMedidas(),
     partes: [
       Parte(
         nome: "Exemplo",

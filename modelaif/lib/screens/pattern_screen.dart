@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:modelaif/medidas.dart';
 
 import '../components/back_bar.dart';
 
 import 'package:modelaif/molde.dart';
 
-class PatternScreen extends StatefulWidget {
+class PatternScreen extends StatelessWidget {
   final Molde molde;
 
   const PatternScreen(this.molde, {super.key});
 
   @override
-  State<PatternScreen> createState() => _PatternScreenState();
-}
-
-class _PatternScreenState extends State<PatternScreen> {
-
-  @override
   Widget build(BuildContext context) {
-    final backBar = BackBar(title: widget.molde.modelo, context: context);
-    final parteWidgets = widget.molde.partes
+    final backBar = BackBar(title: molde.modelo, context: context);
+    final parteWidgets = molde.partes
         .map((parte) => ParteWidget(parte))
         .toList();
 
@@ -37,7 +32,7 @@ class _PatternScreenState extends State<PatternScreen> {
               child: Theme(
                 data: Theme.of(context)
                     .copyWith(dividerColor: Colors.transparent),
-                child: FormMedidas(),
+                child: FormMedidas(molde.medidasPadrao),
               ),
             ),
             ...parteWidgets.map(
@@ -116,26 +111,15 @@ class PassosWidget extends StatelessWidget {
 
 
 class FormMedidas extends StatefulWidget {
-  const FormMedidas({super.key});
+  final TabelaDeMedidas tabela;
+
+  const FormMedidas(this.tabela, {super.key});
 
   @override
   State<FormMedidas> createState() => _FormMedidasState();
 }
 
 class _FormMedidasState extends State<FormMedidas> {
-  final List<TextEditingController> _controllers = List.generate(
-    4,
-    (index) => TextEditingController(text: '00'),
-  );
-
-  @override
-  void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -170,15 +154,10 @@ class _FormMedidasState extends State<FormMedidas> {
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
           child: Column(
-            children: List.generate(_controllers.length, (index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: _buildInputField(
-                  label: 'Medida ${index + 1}',
-                  controller: _controllers[index],
-                ),
-              );
-            }),
+            spacing: 8,
+            children: widget.tabela.toList().map(
+              (par) => _buildInputField(label: par.key, value: par.value),
+            ).toList(),
           ),
         ),
         Padding(
@@ -245,10 +224,12 @@ class _FormMedidasState extends State<FormMedidas> {
   // WIDGET AUXILIAR GENÉRICO PARA CAMPOS DE TEXTO
   Widget _buildInputField({
     required String label,
-    required TextEditingController controller,
+    required double value,
+    // required TextEditingController controller,
   }) {
     return TextFormField(
-      controller: controller,
+      // controller: controller,
+      initialValue: value.toString(),
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         labelText: label,
@@ -276,10 +257,10 @@ class _FormMedidasState extends State<FormMedidas> {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Color(0xFFEBB2C3), width: 1.5),
         ),
-        suffixIcon: controller.text.isNotEmpty
+        /*suffixIcon: controller.text.isNotEmpty
             ? IconButton(
                 icon: const Icon(
-                  Icons.cancel_outlined,
+                  Icons.clear,
                   color: Colors.black45,
                   size: 20,
                 ),
@@ -289,7 +270,7 @@ class _FormMedidasState extends State<FormMedidas> {
                   });
                 },
               )
-            : null,
+            : null,*/
       ),
       onChanged: (_) => setState(() {}),
     );
