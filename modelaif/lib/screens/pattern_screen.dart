@@ -26,14 +26,10 @@ class PatternScreen extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(16),
               ),
               clipBehavior: Clip.antiAlias,
-              child: Theme(
-                data: Theme.of(context)
-                    .copyWith(dividerColor: Colors.transparent),
-                child: FormMedidas(molde.medidasPadrao),
-              ),
+              child: FormMedidas(molde.medidasPadrao),
             ),
             ...parteWidgets.map(
               (parte) => Padding(
@@ -233,44 +229,12 @@ class _FormMedidasState extends State<FormMedidas> {
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: Colors.black87, fontSize: 14),
         suffixText: 'cm',
-        suffixStyle: const TextStyle(
-          color: Colors.black54,
-          fontWeight: FontWeight.w500,
-        ),
         filled: true,
-        fillColor: const Color(0xFFF3F6EC),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 12,
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.1)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.black.withValues(alpha: 0.1)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFFEBB2C3), width: 1.5),
-        ),
-        /*suffixIcon: controller.text.isNotEmpty
-            ? IconButton(
-                icon: const Icon(
-                  Icons.clear,
-                  color: Colors.black45,
-                  size: 20,
-                ),
-                onPressed: () {
-                  setState(() {
-                    controller.clear();
-                  });
-                },
-              )
-            : null,*/
       ),
       onChanged: (_) => setState(() {}),
     );
