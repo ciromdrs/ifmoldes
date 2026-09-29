@@ -56,19 +56,25 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.title,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: theme.colorScheme.onPrimaryContainer,
+                    Padding(
+                      padding: EdgeInsets.only(top: 4.5, bottom: 4.5),
+                      child: Text(
+                        widget.title,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        )
                       )
                     ),
-                    Text(
-                      'Mais informações',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 4.5),
+                      child: Text(
+                        'Mais informações',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        )
                       )
                     )
                   ]

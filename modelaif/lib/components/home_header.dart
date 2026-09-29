@@ -2,14 +2,29 @@ import 'package:flutter/material.dart';
 
 class HomeHeader extends AppBar {
   final GlobalKey<ScaffoldState> scaffoldKey;
+  final TextEditingController searchController;
+  final void Function(String)? searchBarOnChanged;
 
-  HomeHeader({super.key, required this.scaffoldKey});
+  HomeHeader({
+    super.key,
+    required this.scaffoldKey,
+    required this.searchController,
+    required this.searchBarOnChanged
+  });
 
   @override
   State<HomeHeader> createState() => _HomeHeaderState();
 }
 
 class _HomeHeaderState extends State<HomeHeader> {
+  late void Function(String)? searchBarOnChanged;
+
+  @override
+  initState() {
+    super.initState();
+    searchBarOnChanged = widget.searchBarOnChanged;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
