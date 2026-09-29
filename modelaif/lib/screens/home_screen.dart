@@ -3,9 +3,9 @@ import 'package:diacritic/diacritic.dart';
 import '../components/nav_bar.dart';
 import '../components/home_header.dart';
 import '../components/fab_importar.dart';
-import '../models/molde.dart';
+import '../molde.dart';
 import '../screens/pattern_screen.dart';
-import '../components/category_card.dart';
+import '../components/pattern_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         itemBuilder: (context, index) {
           final Molde molde = filteredMoldes[index];
-          return AnimatedCategoryCard(
+          return AnimatedPatternCard(
             title: molde.modelo,
             onTap: () {
               // Navegação para a PatternScreen passando o nome da categoria

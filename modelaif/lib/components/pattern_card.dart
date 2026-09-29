@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 
 // WIDGET AUXILIAR (Caixa clicável com animação de encolher ao toque)
-class AnimatedCategoryCard extends StatefulWidget {
+class AnimatedPatternCard extends StatefulWidget {
   final String title;
   final VoidCallback onTap;
 
-  const AnimatedCategoryCard({
-    super.key,
+  const AnimatedPatternCard({super.key, 
     required this.title,
     required this.onTap,
   });
 
   @override
-  State<AnimatedCategoryCard> createState() => _AnimatedCategoryCardState();
+  State<AnimatedPatternCard> createState() => _AnimatedPatternCardState();
 }
 
-class _AnimatedCategoryCardState extends State<AnimatedCategoryCard> {
+class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
   bool _isPressed = false;
 
   @override
@@ -51,7 +50,7 @@ class _AnimatedCategoryCardState extends State<AnimatedCategoryCard> {
               ),
               const SizedBox(height: 6),
 
-              // Textos da categoria
+              // Textos do molde
               Padding(
                 padding: EdgeInsets.only(left: 6.0, bottom: 4.0),
                 child: Column(
