@@ -17,7 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   // Controle de estado e navegação
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late TextEditingController searchController = TextEditingController();
-  final GlobalKey<CardsPaddingState> cardsPaddingKey = GlobalKey<CardsPaddingState>();
 
   late List<Molde> moldesBase;
   late List<Molde> filteredMoldes;
@@ -33,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void filterMoldes(String value) {
     setState(() {
       filteredMoldes = moldesBase.where(
-        (Molde molde) => molde.modelo.contains(value)
+        (Molde molde) => molde.modelo.toLowerCase().contains(value.toLowerCase())
       ).toList();
     });
   }
