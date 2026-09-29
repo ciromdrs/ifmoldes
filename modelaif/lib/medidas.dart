@@ -7,6 +7,13 @@ class TabelaDeMedidas {
     this.nome = 'Sem nome',
     this.medidas = const {},
   });
+
+  /// Retorna [medidas] como uma lista ordenada.
+  List<MapEntry<String, double>> toList() {
+    List<MapEntry<String, double>> ordenada = medidas.entries.toList();
+    ordenada.sort((a, b) => a.key.compareTo(b.key),);
+    return ordenada;
+  }
 }
 
 /// Nome padrão para medidas.
