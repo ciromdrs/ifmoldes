@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pattern_card.dart';
-import '../models/molde.dart';
+import '../molde.dart';
 import '../screens/pattern_screen.dart';
 
 class CardsPadding extends StatelessWidget {
