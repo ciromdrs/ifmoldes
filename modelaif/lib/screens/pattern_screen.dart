@@ -119,101 +119,63 @@ class _FormMedidasState extends State<FormMedidas> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ExpansionTile(
-      initiallyExpanded: true,
-      backgroundColor: theme.colorScheme.surfaceContainer,
-      collapsedBackgroundColor: theme.colorScheme.surfaceContainer,
-      tilePadding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 4,
-      ),
-      iconColor: theme.colorScheme.onSurfaceVariant,
-      collapsedIconColor: theme.colorScheme.onSurfaceVariant,
-      title: Row(
-        children: [
-          Icon(
-            Icons.design_services_outlined,
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
-          SizedBox(width: 12),
-          Text(
-            'Medidas',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.onSurface,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      color: theme.colorScheme.surfaceContainer,
+      child: Form(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: Row(
+                children: [
+                  Icon(Icons.design_services_outlined),
+                  SizedBox(width: 12),
+                  Text('Medidas', style: theme.textTheme.titleMedium),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
-          child: Column(
-            spacing: 8,
-            children: widget.tabela.toList().map(
-              (par) => _buildInputField(label: par.key, value: par.value),
-            ).toList(),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 4.0, bottom: 8.0),
-          child: Text(
-            'Medidas Salvas',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: theme.colorScheme.onSurface,
+            Column(
+              spacing: 8,
+              children: widget.tabela.toList().map(
+                (par) => _buildInputField(label: par.key, value: par.value),
+              ).toList(),
             ),
-          ),
+            // TODO: Atualizar de acordo com novo protótipo no Figma. Usar uma search bar.
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Text(
+                'Medidas Salvas',
+                style: theme.textTheme.titleMedium,
+              ),
+            ),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 4,
+              separatorBuilder: (context, index) => Divider(
+                height: 1,
+                color: theme.colorScheme.outlineVariant,
+                indent: 16,
+                endIndent: 16,
+              ),
+              itemBuilder: (context, index) {
+                return ListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 4,
+                  ),
+                  leading: Icon(Icons.design_services_outlined),
+                  title: Text('Perfil $index'),
+                  subtitle: Text('(data)'),
+                  trailing: Icon(Icons.upload_outlined),
+                  onTap: () {},
+                );
+              },
+            ),
+          ],
         ),
-
-        ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 4,
-          separatorBuilder: (context, index) => Divider(
-            height: 1,
-            color: theme.colorScheme.outlineVariant,
-            indent: 16,
-            endIndent: 16,
-          ),
-          itemBuilder: (context, index) {
-            return ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
-              ),
-              leading: Icon(
-                Icons.design_services_outlined,
-                size: 20,
-              ),
-              title: Text(
-                'Perfil $index',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
-                  color: theme.colorScheme.onSurface,
-                ),
-              ),
-              subtitle: Text(
-                '(data)',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.upload_outlined,
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-                onPressed: () {},
-              ),
-            );
-          },
-        ),
-      ],
+      ),
     );
   }
 
