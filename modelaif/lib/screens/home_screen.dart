@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:diacritic/diacritic.dart';
-import '../components/nav_bar.dart';
-import '../components/home_header.dart';
-import '../components/fab_importar.dart';
-import '../molde.dart';
-import '../screens/pattern_screen.dart';
-import '../components/pattern_card.dart';
+import 'package:modelaif/components/nav_bar.dart';
+import 'package:modelaif/components/home_header.dart';
+import 'package:modelaif/components/fab_importar.dart';
+import 'package:modelaif/molde.dart';
+import 'package:modelaif/screens/pattern_screen.dart';
+import 'package:modelaif/components/pattern_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

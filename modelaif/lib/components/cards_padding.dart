@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pattern_card.dart';
-import '../molde.dart';
-import '../screens/pattern_screen.dart';
+import 'package:modelaif/components/pattern_card.dart';
+import 'package:modelaif/molde.dart';
+import 'package:modelaif/screens/pattern_screen.dart';
 
 class CardsPadding extends StatelessWidget {
   // Moldes do Grid

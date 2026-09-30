@@ -1,4 +1,4 @@
-import 'medidas.dart';
+import 'package:modelaif/medidas.dart';
 
 /// Representa um molde de roupa.
 ///

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart'; // Import com o caminho da pasta screens
+import 'package:modelaif/screens/home_screen.dart'; // Import com o caminho da pasta screens
 
 void main() {
   runApp(const ModelaIFApp());

@@ -15,6 +15,8 @@ class _NavbarState extends State<Navbar> {
     final theme = Theme.of(context);
     final mediaQuery = MediaQuery.of(context);
 
+    const double iconsSize = 38;
+
     return UnconstrainedBox(
       child: Container(
         width: mediaQuery.size.width * .48,
@@ -41,15 +43,14 @@ class _NavbarState extends State<Navbar> {
           backgroundColor: Colors.transparent,
           elevation: 4,
           destinations: const [
-            // TODO: criar constante para armazenar o tamanho dos ícones (size)
             NavigationDestination(
-              icon: Icon(Icons.checkroom_outlined, size: 38),
-              selectedIcon: Icon(Icons.checkroom, size: 38),
+              icon: Icon(Icons.checkroom_outlined, size: iconsSize),
+              selectedIcon: Icon(Icons.checkroom, size: iconsSize),
               label: 'Moldes',
             ),
             NavigationDestination(
-              icon: Icon(Icons.design_services_outlined, size: 38),
-              selectedIcon: Icon(Icons.design_services, size: 38),
+              icon: Icon(Icons.design_services_outlined, size: iconsSize),
+              selectedIcon: Icon(Icons.design_services, size: iconsSize),
               label: 'Medidas',
             ),
           ]
