@@ -20,8 +20,8 @@ class Molde {
   /// Caminho para a imagem principal do molde.
   String imagem;
 
-  /// Manequim com medidas padrão para este molde.
-  TabelaDeMedidas medidasPadrao;
+  /// Tabela com medidas padrão para este molde.
+  TabelaDeMedidas tabelaPadrao;
 
   /// Cria uma instância de [Molde].
   Molde({
@@ -29,7 +29,7 @@ class Molde {
     required this.modelista,
     required this.referencia,
     required this.imagem,
-    required this.medidasPadrao,
+    required this.tabelaPadrao,
     required this.partes,
   });
 }
@@ -63,7 +63,7 @@ class Passo {
   /// Descrição de como executar o passo. Ex.: "Trace uma reta do ponto A ao ponto B".
   String descricao;
 
-  /// Nome da medida de referência usada neste passo.
+  /// Medida de referência usada neste passo.
   String? medida;
 
   /// Divisor da medida a cortar no passo. Ex.: 1/4 da cintura.
@@ -73,13 +73,21 @@ class Passo {
   double incremento;
 
   Passo({required this.descricao, this.medida, this.divisor = 1, this.incremento = 0});
+
+  /// Calcula a medida proporcionalmente à tabela informada.
+  double medidaProporcional(TabelaDeMedidas tabela) {
+    double m = tabela.map[medida] ?? 0;
+    m /= divisor;
+    m += incremento;
+    return m;
+  }
 }
 
-final TabelaDeMedidas manequimExemplo = TabelaDeMedidas(
-  medidas: {
-    Medidas.quadril: 110,
-    Medidas.cintura: 96,
-    Medidas.alturaDoQuadril: 21,
+final TabelaDeMedidas tabelaDeMedidasExemplo = TabelaDeMedidas(
+  map: {
+    MedidasPadrao.quadril: 110,
+    MedidasPadrao.cintura: 96,
+    MedidasPadrao.alturaDoQuadril: 21,
     'Comprimento da saia': 59,
   }
 );
@@ -90,11 +98,11 @@ final List<Molde> moldesExemplo = [
     modelista: "Ana Silva",
     referencia: "S2020",
     imagem: "moldes/saia_reta/saia_reta__Principal.png",
-    medidasPadrao: TabelaDeMedidas(
-      medidas: {
-        Medidas.quadril: 100,
-        Medidas.cintura: 88,
-        Medidas.alturaDoQuadril: 19,
+    tabelaPadrao: TabelaDeMedidas(
+      map: {
+        MedidasPadrao.quadril: 100,
+        MedidasPadrao.cintura: 88,
+        MedidasPadrao.alturaDoQuadril: 19,
         'Altura da saia': 54,
       }
     ),
@@ -109,7 +117,7 @@ final List<Molde> moldesExemplo = [
                 "Traçar uma reta do Ponto 1 ao Ponto 2 de tamanho ¼ do Quadril + 1 cm",
             divisor: 4,
             incremento: 1,
-            medida: Medidas.quadril
+            medida: MedidasPadrao.quadril
           ),
           Passo(
             descricao:
@@ -121,12 +129,12 @@ final List<Molde> moldesExemplo = [
             descricao: "Marcar do Ponto 1 ao Ponto 5 = ¼ da Cintura +1 cm",
             divisor: 4,
             incremento: 1,
-            medida: Medidas.cintura
+            medida: MedidasPadrao.cintura
           ),
           Passo(
             descricao:
                 "Marcar do Ponto 1 ao 7 e do Ponto 2 ao 6 = ALTURA DO QUADRIL",
-                medida: Medidas.alturaDoQuadril
+                medida: MedidasPadrao.alturaDoQuadril
           ),
         ],
       ),
@@ -139,7 +147,7 @@ final List<Molde> moldesExemplo = [
             descricao: "Traçar uma reta do Ponto 1 ao Ponto 2 = ¼ DO QUADRIL + 1cm",
             divisor: 4,
             incremento: 1,
-            medida: Medidas.quadril
+            medida: MedidasPadrao.quadril
           ),
           Passo(
             descricao: "Traçar uma reta do Ponto 1 ao 3 e do 2 ao 4 e unir o Ponto 3 ao 4 = COMPRIMENTO DA SAIA + 2 cm",
@@ -148,13 +156,13 @@ final List<Molde> moldesExemplo = [
           ),
           Passo(
             descricao: "Marcar do Ponto 1 ao 5 = ¼ da CINTURA +1cm",
-            medida: Medidas.cintura,
+            medida: MedidasPadrao.cintura,
             divisor: 4,
             incremento: 1,
           ),
           Passo(
             descricao: "Marcar do Ponto 1 ao 7 e do Ponto 2 ao 6 = ALTURA DO QUADRIL",
-            medida: Medidas.alturaDoQuadril,
+            medida: MedidasPadrao.alturaDoQuadril,
           ),
           Passo(
             descricao: "Ligar o Ponto 6 ao 7",
@@ -174,7 +182,7 @@ final List<Molde> moldesExemplo = [
         passos: [
           Passo(
             descricao: 'Ponto 1 ao Ponto 2 = CINTURA + 2cm',
-            medida: Medidas.cintura,
+            medida: MedidasPadrao.cintura,
             incremento: 2,
           ),
           Passo(
@@ -189,7 +197,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Bottini",
     referencia: "C2020",
     imagem: "exmplo.png",
-    medidasPadrao: TabelaDeMedidas(),
+    tabelaPadrao: TabelaDeMedidas(),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -204,7 +212,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Modelista Exemplo",
     referencia: "C2020",
     imagem: "exmplo.png",
-    medidasPadrao: TabelaDeMedidas(),
+    tabelaPadrao: TabelaDeMedidas(),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -218,7 +226,7 @@ final List<Molde> moldesExemplo = [
     modelo: 'Vestido',
     modelista: "Modelista Exemplo",
     referencia: "V2020",
-    medidasPadrao: TabelaDeMedidas(),
+    tabelaPadrao: TabelaDeMedidas(),
     imagem: "exmplo.png",
     partes: [
       Parte(
@@ -234,7 +242,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Modelista Exemplo",
     referencia: "S2020",
     imagem: "exmplo.png",
-    medidasPadrao: TabelaDeMedidas(),
+    tabelaPadrao: TabelaDeMedidas(),
     partes: [
       Parte(
         nome: "Exemplo",

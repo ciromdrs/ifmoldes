@@ -1,23 +1,27 @@
 /// Tabela de medidas de uma pessoa.
+/// TODO: Transformar em extension de Map<String, double>?
 class TabelaDeMedidas {
+  /// Nome da tabela. Ex.: "Alice", "Padrão M", etc.
   final String nome;
-  final Map<String, double> medidas;
+
+  /// Map de medida para valor em cm.
+  final Map<String, double> map;
 
   const TabelaDeMedidas({
     this.nome = 'Sem nome',
-    this.medidas = const {},
+    this.map = const {},
   });
 
-  /// Retorna [medidas] como uma lista ordenada.
+  /// Retorna [map] como uma lista ordenada.
   List<MapEntry<String, double>> toList() {
-    List<MapEntry<String, double>> ordenada = medidas.entries.toList();
+    List<MapEntry<String, double>> ordenada = map.entries.toList();
     ordenada.sort((a, b) => a.key.compareTo(b.key),);
     return ordenada;
   }
 }
 
 /// Nome padrão para medidas.
-class Medidas {
+class MedidasPadrao {
   static const String busto = 'Busto';
   static const String cintura = 'Cintura';
   static const String quadril = 'Quadril';

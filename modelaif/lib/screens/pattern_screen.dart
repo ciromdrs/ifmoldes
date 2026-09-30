@@ -13,8 +13,9 @@ class PatternScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backBar = BackBar(title: molde.modelo, context: context);
+    // TODO: Carregar medidas a partir do form.
     final parteWidgets = molde.partes
-        .map((parte) => ParteWidget(parte))
+        .map((parte) => ParteWidget(parte, molde.tabelaPadrao))
         .toList();
 
     return Scaffold(
@@ -29,7 +30,7 @@ class PatternScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               clipBehavior: Clip.antiAlias,
-              child: FormMedidas(molde.medidasPadrao),
+              child: FormMedidas(molde.tabelaPadrao),
             ),
             ...parteWidgets.map(
               (parte) => Padding(
@@ -47,7 +48,9 @@ class PatternScreen extends StatelessWidget {
 class ParteWidget extends StatelessWidget {
   final Parte parte;
 
-  const ParteWidget(this.parte, {super.key});
+  final TabelaDeMedidas tabelaDeMedidas;
+
+  const ParteWidget(this.parte, this.tabelaDeMedidas, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +79,26 @@ class ParteWidget extends StatelessWidget {
               'Cortar: x${parte.quantidade}',
               style: theme.textTheme.bodyMedium,
             ),
-            PassosWidget(parte.passos),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: parte.passos.length,
+              itemBuilder: (context, index) {
+                Passo passo = parte.passos[index];
+                List<Widget> children = [Text('${index + 1}. ${passo.descricao}')];
+                if (passo.medidaProporcional(tabelaDeMedidas) > 0) {
+                  String c = passo.medida ?? '';
+                  c += passo.divisor != 1 ? ' / ${passo.divisor}' : '';
+                  c += passo.incremento != 0 ? ' + ${passo.incremento}cm' : '';
+                  c +=  ' = ${passo.medidaProporcional(tabelaDeMedidas)}cm';
+                  children.add(Text(c));
+                }
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children,
+                );
+              }
+            ),
           ],
         ),
       ),
@@ -84,96 +106,55 @@ class ParteWidget extends StatelessWidget {
   }
 }
 
-class PassosWidget extends StatelessWidget {
-  final List<Passo> passos;
-
-  const PassosWidget(this.passos, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final List<Widget> widgets = [];
-    for (int i = 0; i < passos.length; i++) {
-      Passo p = passos[i];
-      Widget w = Text('${i+1}. ${p.descricao}');
-      widgets.add(w);
-    }
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: widgets,
-    );
-  }
-}
+/*
+}*/
 
 
 class FormMedidas extends StatefulWidget {
-  final TabelaDeMedidas tabela;
+  final TabelaDeMedidas tabelaPadrao;
 
-  const FormMedidas(this.tabela, {super.key});
+  const FormMedidas(this.tabelaPadrao, {super.key});
 
   @override
   State<FormMedidas> createState() => _FormMedidasState();
 }
 
 class _FormMedidasState extends State<FormMedidas> {
+  TabelaDeMedidas? tabela;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    tabela = TabelaDeMedidas(
+      nome: widget.tabelaPadrao.nome,
+      map: Map.from(widget.tabelaPadrao.map)
+    );
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       color: theme.colorScheme.surfaceContainer,
-      child: Form(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: Row(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Form(
+          child: Column(
+            spacing: 8,
+            children: [
+              Row(
+                spacing: 10,
                 children: [
                   Icon(Icons.design_services_outlined),
-                  SizedBox(width: 12),
                   Text('Medidas', style: theme.textTheme.titleMedium),
                 ],
               ),
-            ),
-            Column(
-              spacing: 8,
-              children: widget.tabela.toList().map(
-                (par) => _buildInputField(label: par.key, value: par.value),
-              ).toList(),
-            ),
-            // TODO: Atualizar de acordo com novo protótipo no Figma. Usar uma search bar.
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              child: Text(
-                'Medidas Salvas',
-                style: theme.textTheme.titleMedium,
+              Column(
+                spacing: 8,
+                children: tabela?.toList().map(
+                  (par) => _buildInputField(label: par.key, value: par.value),
+                ).toList() ?? [],
               ),
-            ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 4,
-              separatorBuilder: (context, index) => Divider(
-                height: 1,
-                color: theme.colorScheme.outlineVariant,
-                indent: 16,
-                endIndent: 16,
-              ),
-              itemBuilder: (context, index) {
-                return ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 4,
-                  ),
-                  leading: Icon(Icons.design_services_outlined),
-                  title: Text('Perfil $index'),
-                  subtitle: Text('(data)'),
-                  trailing: Icon(Icons.upload_outlined),
-                  onTap: () {},
-                );
-              },
-            ),
-          ],
+              // TODO: Adicionar pesquisa de medidas salvas de acordo com protótipo no Figma.
+            ],
+          ),
         ),
       ),
     );
