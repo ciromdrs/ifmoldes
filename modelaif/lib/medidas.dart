@@ -1,20 +1,14 @@
 /// Tabela de medidas de uma pessoa.
-/// TODO: Transformar em extension de Map<String, double>?
-class TabelaDeMedidas {
+
+extension TabelaDeMedidas<K, V> on Map<String, dynamic> {
   /// Nome da tabela. Ex.: "Alice", "Padrão M", etc.
-  final String nome;
+  String get nome {
+    return this['nome'];
+  }
 
-  /// Map de medida para valor em cm.
-  final Map<String, double> map;
-
-  const TabelaDeMedidas({
-    this.nome = 'Sem nome',
-    this.map = const {},
-  });
-
-  /// Retorna [map] como uma lista ordenada.
-  List<MapEntry<String, double>> toList() {
-    List<MapEntry<String, double>> ordenada = map.entries.toList();
+  /// Retorna a instância como uma lista ordenada.
+  List<MapEntry<String, dynamic>> toList() {
+    List<MapEntry<String, dynamic>> ordenada = entries.toList();
     ordenada.sort((a, b) => a.key.compareTo(b.key),);
     return ordenada;
   }

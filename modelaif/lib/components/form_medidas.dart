@@ -10,7 +10,7 @@ class FormMedidas extends StatefulWidget {
   @override
   State<FormMedidas> createState() => _FormMedidasState();
 }
-
+Map<String, double> map = {};
 class _FormMedidasState extends State<FormMedidas> {
   TabelaDeMedidas? tabela;
 
