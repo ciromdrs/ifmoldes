@@ -83,15 +83,6 @@ class Passo {
   }
 }
 
-final TabelaDeMedidas tabelaDeMedidasExemplo = TabelaDeMedidas(
-  map: {
-    MedidasPadrao.quadril: 110,
-    MedidasPadrao.cintura: 96,
-    MedidasPadrao.alturaDoQuadril: 21,
-    'Comprimento da saia': 59,
-  }
-);
-
 final List<Molde> moldesExemplo = [
   Molde(
     modelo: 'Saia Reta',
