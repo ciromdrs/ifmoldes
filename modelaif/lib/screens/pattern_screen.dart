@@ -57,7 +57,7 @@ class ParteWidget extends StatelessWidget {
     final theme = Theme.of(context);
 
     final decoration = BoxDecoration(
-      color: theme.colorScheme.primaryContainer,
+      color: theme.colorScheme.secondaryContainer,
       borderRadius: BorderRadius.all(Radius.circular(16)),
     );
 

@@ -31,7 +31,7 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
         duration: Duration(milliseconds: 100),
         child: Container(
           decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
+            color: theme.colorScheme.surfaceContainer,
             borderRadius: BorderRadius.circular(20),
           ),
           padding: EdgeInsets.all(6.0),
@@ -60,21 +60,14 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
                       padding: EdgeInsets.only(top: 4.5, bottom: 4.5),
                       child: Text(
                         widget.title,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: theme.colorScheme.onPrimaryContainer,
-                        )
+                        style: theme.textTheme.labelLarge
                       )
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 4.5),
                       child: Text(
                         'Mais informações',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        )
+                        style: theme.textTheme.labelSmall
                       )
                     )
                   ]

@@ -94,8 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
 
       // Botão de ação flutuante (FAB)
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: ImportartMoldeFAB(),
+      /* floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: ImportartMoldeFAB(),*/
 
       // BOTTOM NAVIGATION BAR (Barra Inferior Fixa)
       bottomNavigationBar: Navbar(),
