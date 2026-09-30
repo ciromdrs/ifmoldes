@@ -131,30 +131,27 @@ class _FormMedidasState extends State<FormMedidas> {
     );
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(16),
       color: theme.colorScheme.surfaceContainer,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Form(
-          child: Column(
-            spacing: 8,
-            children: [
-              Row(
-                spacing: 10,
-                children: [
-                  Icon(Icons.design_services_outlined),
-                  Text('Medidas', style: theme.textTheme.titleMedium),
-                ],
-              ),
-              Column(
-                spacing: 8,
-                children: tabela?.toList().map(
-                  (par) => _buildInputField(label: par.key, value: par.value),
-                ).toList() ?? [],
-              ),
-              // TODO: Adicionar pesquisa de medidas salvas de acordo com protótipo no Figma.
-            ],
-          ),
+      child: Form(
+        child: Column(
+          spacing: 8,
+          children: [
+            Row(
+              spacing: 10,
+              children: [
+                Icon(Icons.design_services_outlined),
+                Text('Medidas', style: theme.textTheme.titleMedium),
+              ],
+            ),
+            Column(
+              spacing: 8,
+              children: tabela?.toList().map(
+                (par) => _buildInputField(label: par.key, value: par.value),
+              ).toList() ?? [],
+            ),
+            // TODO: Adicionar pesquisa de medidas salvas de acordo com protótipo no Figma.
+          ],
         ),
       ),
     );
