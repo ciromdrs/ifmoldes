@@ -56,6 +56,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        onChanged: searchBarOnChanged,
                         decoration: InputDecoration(
                           hintText: 'Buscar molde',
                           border: InputBorder.none,
