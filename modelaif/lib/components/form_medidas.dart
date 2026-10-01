@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modelaif/medidas.dart';
 
 class FormMedidas extends StatefulWidget {
-  final TabelaDeMedidas tabelaPadrao;
+  final Map<String, dynamic> tabelaPadrao;
 
   const FormMedidas(this.tabelaPadrao, {super.key});
 
@@ -12,15 +12,13 @@ class FormMedidas extends StatefulWidget {
 }
 Map<String, double> map = {};
 class _FormMedidasState extends State<FormMedidas> {
-  TabelaDeMedidas? tabela;
+  Map<String, dynamic>? tabela;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    tabela = TabelaDeMedidas(
-      nome: widget.tabelaPadrao.nome,
-      map: Map.from(widget.tabelaPadrao.map)
-    );
+    tabela = Map.from(widget.tabelaPadrao);
+    tabela?['nome'] = widget.tabelaPadrao['nome'];
 
     return Container(
       padding: const EdgeInsets.all(16),

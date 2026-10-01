@@ -2,7 +2,7 @@ import 'package:modelaif/medidas.dart';
 
 /// Model para TabelaDeMedidas.
 class TabelaDeMedidasModel {
-  final TabelaDeMedidas tabela;
+  final Map<String, dynamic> tabela;
   final DateTime dataCriacao;
   final DateTime ultimaModificacao;
 

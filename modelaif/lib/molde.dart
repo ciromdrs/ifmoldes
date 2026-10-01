@@ -21,7 +21,7 @@ class Molde {
   String imagem;
 
   /// Tabela com medidas padrão para este molde.
-  TabelaDeMedidas tabelaPadrao;
+  Map<String, dynamic> tabelaPadrao;
 
   /// Cria uma instância de [Molde].
   Molde({
@@ -75,8 +75,8 @@ class Passo {
   Passo({required this.descricao, this.medida, this.divisor = 1, this.incremento = 0});
 
   /// Calcula a medida proporcionalmente à tabela informada.
-  double medidaProporcional(TabelaDeMedidas tabela) {
-    double m = tabela.map[medida] ?? 0;
+  double medidaProporcional(Map<String, dynamic> tabela) {
+    double m = tabela[medida] ?? 0;
     m /= divisor;
     m += incremento;
     return m;
@@ -89,14 +89,12 @@ final List<Molde> moldesExemplo = [
     modelista: "Ana Silva",
     referencia: "S2020",
     imagem: "moldes/saia_reta/saia_reta__Principal.png",
-    tabelaPadrao: TabelaDeMedidas(
-      map: {
-        MedidasPadrao.quadril: 100,
-        MedidasPadrao.cintura: 88,
-        MedidasPadrao.alturaDoQuadril: 19,
-        'Altura da saia': 54,
-      }
-    ),
+    tabelaPadrao: {
+      MedidasPadrao.quadril: 100,
+      MedidasPadrao.cintura: 88,
+      MedidasPadrao.alturaDoQuadril: 19,
+      'Altura da saia': 54,
+    },
     partes: [
       Parte(
         nome: "Frente",
@@ -188,7 +186,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Bottini",
     referencia: "C2020",
     imagem: "exmplo.png",
-    tabelaPadrao: TabelaDeMedidas(),
+    tabelaPadrao: {},
     partes: [
       Parte(
         nome: "Exemplo",
@@ -203,7 +201,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Modelista Exemplo",
     referencia: "C2020",
     imagem: "exmplo.png",
-    tabelaPadrao: TabelaDeMedidas(),
+    tabelaPadrao: {},
     partes: [
       Parte(
         nome: "Exemplo",
@@ -217,7 +215,7 @@ final List<Molde> moldesExemplo = [
     modelo: 'Vestido',
     modelista: "Modelista Exemplo",
     referencia: "V2020",
-    tabelaPadrao: TabelaDeMedidas(),
+    tabelaPadrao: {},
     imagem: "exmplo.png",
     partes: [
       Parte(
@@ -233,7 +231,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Modelista Exemplo",
     referencia: "S2020",
     imagem: "exmplo.png",
-    tabelaPadrao: TabelaDeMedidas(),
+    tabelaPadrao: {},
     partes: [
       Parte(
         nome: "Exemplo",
