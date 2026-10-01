@@ -1,5 +1,3 @@
-import 'package:modelaif/medidas.dart';
-
 /// Model para TabelaDeMedidas.
 class TabelaDeMedidasModel {
   final Map<String, dynamic> tabela;

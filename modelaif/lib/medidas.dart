@@ -1,4 +1,5 @@
 /// Tabela de medidas de uma pessoa.
+library;
 
 extension TabelaDeMedidas<K, V> on Map<String, dynamic> {
   /// Nome da tabela. Ex.: "Alice", "Padrão M", etc.
