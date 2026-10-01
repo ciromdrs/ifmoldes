@@ -18,7 +18,7 @@ class _FormMedidasState extends State<FormMedidas> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     tabela = Map.from(widget.tabelaPadrao);
-    tabela?.nome = widget.tabelaPadrao['nome'] ?? 'Sem nome';
+    tabela?.nome = widget.tabelaPadrao['nome'] ?? '';
 
     return Container(
       padding: const EdgeInsets.all(16),
