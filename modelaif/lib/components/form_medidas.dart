@@ -10,7 +10,7 @@ class FormMedidas extends StatefulWidget {
   @override
   State<FormMedidas> createState() => _FormMedidasState();
 }
-Map<String, double> map = {};
+
 class _FormMedidasState extends State<FormMedidas> {
   Map<String, dynamic>? tabela;
 
@@ -18,7 +18,7 @@ class _FormMedidasState extends State<FormMedidas> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     tabela = Map.from(widget.tabelaPadrao);
-    tabela?['nome'] = widget.tabelaPadrao['nome'];
+    tabela?.nome = widget.tabelaPadrao['nome'] ?? 'Sem nome';
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -50,7 +50,7 @@ class _FormMedidasState extends State<FormMedidas> {
   // WIDGET AUXILIAR GENÉRICO PARA CAMPOS DE TEXTO
   Widget _buildInputField({
     required String label,
-    required double value,
+    required dynamic value,
     // required TextEditingController controller,
   }) {
     return TextFormField(

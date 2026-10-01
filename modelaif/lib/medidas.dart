@@ -6,6 +6,10 @@ extension TabelaDeMedidas<K, V> on Map<String, dynamic> {
     return this['nome'];
   }
 
+  set nome(String value) {
+    this['nome'] = value;
+  }
+
   /// Retorna a instância como uma lista ordenada.
   List<MapEntry<String, dynamic>> toList() {
     List<MapEntry<String, dynamic>> ordenada = entries.toList();
