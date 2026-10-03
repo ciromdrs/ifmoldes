@@ -30,11 +30,12 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
         scale: _isPressed ? 0.95 : 1.0, // Encolhe levemente ao pressionar
         duration: Duration(milliseconds: 100),
         child: Container(
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainer,
-            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: theme.colorScheme.outlineVariant, width: 2),
+            borderRadius: BorderRadius.circular(16),
           ),
-          padding: EdgeInsets.all(2.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
