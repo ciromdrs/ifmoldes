@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modelaif/medidas.dart';
 
 class FormMedidas extends StatefulWidget {
-  final Map<String, dynamic> tabelaPadrao;
+  final TabelaDeMedidas tabelaPadrao;
 
   const FormMedidas(this.tabelaPadrao, {super.key});
 
@@ -12,13 +12,12 @@ class FormMedidas extends StatefulWidget {
 }
 
 class _FormMedidasState extends State<FormMedidas> {
-  Map<String, dynamic>? tabela;
+  TabelaDeMedidas tabela = TabelaDeMedidas({});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    tabela = Map.from(widget.tabelaPadrao);
-    tabela?.nome = widget.tabelaPadrao['nome'] ?? '';
+    tabela.copy(widget.tabelaPadrao);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -36,9 +35,9 @@ class _FormMedidasState extends State<FormMedidas> {
             ),
             Column(
               spacing: 8,
-              children: tabela?.toList().map(
+              children: tabela.toList().map(
                 (par) => _buildInputField(label: par.key, value: par.value),
-              ).toList() ?? [],
+              ).toList(),
             ),
             // TODO: Adicionar pesquisa de medidas salvas de acordo com protótipo no Figma.
           ],

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:modelaif/medidas.dart';
 import 'package:modelaif/molde.dart';
 
 class ParteWidget extends StatelessWidget {
   final Parte parte;
 
-  final Map<String, dynamic> tabelaDeMedidas;
+  final TabelaDeMedidas tabelaDeMedidas;
 
   const ParteWidget(this.parte, this.tabelaDeMedidas, {super.key});
 

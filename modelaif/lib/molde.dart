@@ -21,7 +21,7 @@ class Molde {
   String imagem;
 
   /// Tabela com medidas padrão para este molde.
-  Map<String, dynamic> tabelaPadrao;
+  TabelaDeMedidas tabelaPadrao;
 
   /// Cria uma instância de [Molde].
   Molde({
@@ -75,8 +75,8 @@ class Passo {
   Passo({required this.descricao, this.medida, this.divisor = 1, this.incremento = 0});
 
   /// Calcula a medida proporcionalmente à tabela informada.
-  double medidaProporcional(Map<String, dynamic> tabela) {
-    double m = tabela[medida] ?? 0;
+  double medidaProporcional(TabelaDeMedidas tabela) {
+    double m = tabela.map[medida] ?? 0;
     m /= divisor;
     m += incremento;
     return m;
@@ -89,12 +89,12 @@ final List<Molde> moldesExemplo = [
     modelista: "Ana Silva",
     referencia: "S2020",
     imagem: "moldes/saia_reta/saia_reta__Principal.png",
-    tabelaPadrao: {
+    tabelaPadrao: TabelaDeMedidas({
       MedidasPadrao.quadril: 100,
       MedidasPadrao.cintura: 88,
       MedidasPadrao.alturaDoQuadril: 19,
       'Altura da saia': 54,
-    },
+    }),
     partes: [
       Parte(
         nome: "Frente",
@@ -186,7 +186,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Bottini",
     referencia: "C2020",
     imagem: "exmplo.png",
-    tabelaPadrao: {},
+    tabelaPadrao: TabelaDeMedidas({}),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -201,7 +201,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Modelista Exemplo",
     referencia: "C2020",
     imagem: "exmplo.png",
-    tabelaPadrao: {},
+    tabelaPadrao: TabelaDeMedidas({}),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -215,7 +215,7 @@ final List<Molde> moldesExemplo = [
     modelo: 'Vestido',
     modelista: "Modelista Exemplo",
     referencia: "V2020",
-    tabelaPadrao: {},
+    tabelaPadrao: TabelaDeMedidas({}),
     imagem: "exmplo.png",
     partes: [
       Parte(
@@ -231,7 +231,7 @@ final List<Molde> moldesExemplo = [
     modelista: "Modelista Exemplo",
     referencia: "S2020",
     imagem: "exmplo.png",
-    tabelaPadrao: {},
+    tabelaPadrao: TabelaDeMedidas({}),
     partes: [
       Parte(
         nome: "Exemplo",
