@@ -76,6 +76,7 @@ class Passo {
 
   /// Calcula a medida proporcionalmente à tabela informada.
   double medidaProporcional(TabelaDeMedidas tabela) {
+    // TODO: Verificar se é melhor retornar 0 ou lançar exceção caso a medida não exista na tabela.
     double m = tabela.map[medida] ?? 0;
     m /= divisor;
     m += incremento;
