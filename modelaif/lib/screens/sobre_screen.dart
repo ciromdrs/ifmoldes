@@ -20,7 +20,7 @@ class SobreScreen extends StatelessWidget {
         children: [
           Center(
             child: Image.asset(
-              'assets/icon.png',
+              'assets/logo.png',
               width: logoWidth,
               height: logoWidth
             ),
