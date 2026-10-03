@@ -45,7 +45,7 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surfaceContainerLowest,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                   ),
                 ),
               ),
