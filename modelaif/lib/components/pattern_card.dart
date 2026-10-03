@@ -34,7 +34,7 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
             color: theme.colorScheme.surfaceContainer,
             borderRadius: BorderRadius.circular(20),
           ),
-          padding: EdgeInsets.all(6.0),
+          padding: EdgeInsets.all(2.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
