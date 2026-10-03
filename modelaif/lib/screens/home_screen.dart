@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:diacritic/diacritic.dart';
 import '../components/nav_bar.dart';
 import '../components/home_header.dart';
-import '../components/fab_importar.dart';
 import '../molde.dart';
 import '../screens/pattern_screen.dart';
 import '../components/pattern_card.dart';
