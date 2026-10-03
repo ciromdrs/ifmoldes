@@ -48,27 +48,20 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
                   ),
                 ),
               ),
-              const SizedBox(height: 6),
 
               // Textos do molde
               Padding(
-                padding: EdgeInsets.only(left: 6.0, bottom: 4.0),
+                padding: EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 4.5, bottom: 4.5),
-                      child: Text(
-                        widget.title,
-                        style: theme.textTheme.labelLarge
-                      )
+                    Text(
+                      widget.title,
+                      style: theme.textTheme.labelLarge
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 4.5),
-                      child: Text(
-                        'Mais informações',
-                        style: theme.textTheme.labelSmall
-                      )
+                    Text(
+                      'Mais informações',
+                      style: theme.textTheme.labelSmall
                     )
                   ]
                 ),
