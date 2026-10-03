@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:diacritic/diacritic.dart';
-import '../components/nav_bar.dart';
-import '../components/home_header.dart';
-import '../molde.dart';
-import '../screens/pattern_screen.dart';
-import '../components/pattern_card.dart';
+import 'package:modelaif/components/nav_bar.dart';
+import 'package:modelaif/components/home_header.dart';
+import 'package:modelaif/molde.dart';
+import 'package:modelaif/screens/pattern_screen.dart';
+import 'package:modelaif/components/pattern_card.dart';
+import 'package:modelaif/screens/sobre_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,11 +48,22 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true,
 
       // DRAWER (Menu Lateral de Hambúrguer)
-      drawer: const Drawer(
+      drawer: Drawer(
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [],
+            children: [
+              ListTile(
+                leading: const Icon(Icons.question_mark),
+                title: const Text('Sobre'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SobreScreen())
+                  );
+                }
+              )
+            ],
           ),
         ),
       ),
