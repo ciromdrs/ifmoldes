@@ -89,7 +89,7 @@ final List<Molde> moldesExemplo = [
     modelo: 'Saia Reta',
     modelista: "Ana Silva",
     referencia: "S2020",
-    imagem: "moldes/saia_reta/saia_reta__Principal.png",
+    imagem: "assets/moldes/saia_reta/saia_reta__Principal.png",
     tabelaPadrao: TabelaDeMedidas({
       MedidasPadrao.quadril: 100,
       MedidasPadrao.cintura: 88,
@@ -100,7 +100,7 @@ final List<Molde> moldesExemplo = [
       Parte(
         nome: "Frente",
         quantidade: 1,
-        imagem: 'moldes/saia_reta/saia_reta__Frente.png',
+        imagem: 'assets/moldes/saia_reta/saia_reta__Frente.png',
         passos: [
           Passo(
             descricao:
@@ -131,7 +131,7 @@ final List<Molde> moldesExemplo = [
       Parte(
         nome: "Costas",
         quantidade: 1,
-        imagem: 'moldes/saia_reta/saia_reta__Costas.png',
+        imagem: 'assets/moldes/saia_reta/saia_reta__Costas.png',
         passos: [
           Passo(
             descricao: "Traçar uma reta do Ponto 1 ao Ponto 2 = ¼ DO QUADRIL + 1cm",
@@ -168,7 +168,7 @@ final List<Molde> moldesExemplo = [
       Parte(
         nome: "Cós",
         quantidade: 1,
-        imagem: 'moldes/saia_reta/saia_reta__Cos.png',
+        imagem: 'assets/moldes/saia_reta/saia_reta__Cos.png',
         passos: [
           Passo(
             descricao: 'Ponto 1 ao Ponto 2 = CINTURA + 2cm',
