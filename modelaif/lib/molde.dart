@@ -104,26 +104,26 @@ final List<Molde> moldesExemplo = [
         passos: [
           Passo(
             descricao:
-                "Traçar uma reta do Ponto 1 ao Ponto 2 de tamanho ¼ do Quadril + 1 cm",
+                "Traçar uma reta do Ponto 1 ao Ponto 2",
             divisor: 4,
             incremento: 1,
             medida: MedidasPadrao.quadril
           ),
           Passo(
             descricao:
-                "Traçar uma reta do Ponto 1 ao Ponto 3 do Ponto 2 ao Ponto 4 e unir o Ponto 3 ao Ponto 4. Tamanho = Comprimento da Saia + 1,5 cm",
+                "Traçar uma reta do Ponto 1 ao Ponto 3 do Ponto 2 ao Ponto 4 e unir o Ponto 3 ao Ponto 4",
             incremento: 1.5,
-            medida: 'Comprimento da saia'
+            medida: 'Altura da saia'
           ),
           Passo(
-            descricao: "Marcar do Ponto 1 ao Ponto 5 = ¼ da Cintura +1 cm",
+            descricao: "Marcar do Ponto 1 ao Ponto 5",
             divisor: 4,
             incremento: 1,
             medida: MedidasPadrao.cintura
           ),
           Passo(
             descricao:
-                "Marcar do Ponto 1 ao 7 e do Ponto 2 ao 6 = ALTURA DO QUADRIL",
+                "Marcar do Ponto 1 ao 7 e do Ponto 2 ao 6",
                 medida: MedidasPadrao.alturaDoQuadril
           ),
         ],
@@ -134,31 +134,32 @@ final List<Molde> moldesExemplo = [
         imagem: 'assets/moldes/saia_reta/saia_reta__Costas.png',
         passos: [
           Passo(
-            descricao: "Traçar uma reta do Ponto 1 ao Ponto 2 = ¼ DO QUADRIL + 1cm",
+            descricao: "Traçar uma reta do Ponto 1 ao Ponto 2",
             divisor: 4,
             incremento: 1,
             medida: MedidasPadrao.quadril
           ),
           Passo(
-            descricao: "Traçar uma reta do Ponto 1 ao 3 e do 2 ao 4 e unir o Ponto 3 ao 4 = COMPRIMENTO DA SAIA + 2 cm",
+            descricao: "Traçar uma reta do Ponto 1 ao 3 e do 2 ao 4 e unir o Ponto 3 ao 4",
             medida: 'Comprimento da saia',
             incremento: 2,
           ),
           Passo(
-            descricao: "Marcar do Ponto 1 ao 5 = ¼ da CINTURA +1cm",
+            descricao: "Marcar do Ponto 1 ao 5",
             medida: MedidasPadrao.cintura,
             divisor: 4,
             incremento: 1,
           ),
           Passo(
-            descricao: "Marcar do Ponto 1 ao 7 e do Ponto 2 ao 6 = ALTURA DO QUADRIL",
+            descricao: "Marcar do Ponto 1 ao 7 e do Ponto 2 ao 6",
             medida: MedidasPadrao.alturaDoQuadril,
           ),
           Passo(
             descricao: "Ligar o Ponto 6 ao 7",
           ),
           Passo(
-            descricao: "Marcar o Ponto 1 ao 8 = 2 cm",
+            descricao: "Marcar o Ponto 1 ao 8",
+            incremento: 2,
           ),
           Passo(
             descricao: "PENCE = Marcar o centro entre o Ponto 1 e o Ponto 2 e marcar 3cm e comprimento 12 cm",
@@ -171,12 +172,13 @@ final List<Molde> moldesExemplo = [
         imagem: 'assets/moldes/saia_reta/saia_reta__Cos.png',
         passos: [
           Passo(
-            descricao: 'Ponto 1 ao Ponto 2 = CINTURA + 2cm',
+            descricao: 'Ponto 1 ao Ponto 2',
             medida: MedidasPadrao.cintura,
             incremento: 2,
           ),
           Passo(
-            descricao: 'Ponto 1 ao 3 e 2 ao 4 = 6cm',
+            descricao: 'Ponto 1 ao 3 e 2 ao 4',
+            incremento: 6,
           ),
         ]
       ),
