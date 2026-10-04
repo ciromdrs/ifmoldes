@@ -1,0 +1,32 @@
+plugins {
+    id "com.android.application"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.modelaif" // Substitua pelo ID real do seu pacote se souber
+    compileSdk = 35 // Versão recomendada para o AGP 9
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    defaultConfig {
+        applicationId = "com.example.modelaif" // Substitua pelo ID real do seu pacote
+        minSdkVersion = flutter.minSdkVersion
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+kotlin {
+    jvmToolchain(21) // Garante Java 21 unificado para Kotlin e Java
+}
