@@ -51,7 +51,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                   color: theme.colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(22),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
                     Expanded(
