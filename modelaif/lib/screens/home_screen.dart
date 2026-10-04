@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:diacritic/diacritic.dart';
-import 'package:modelaif/components/nav_bar.dart';
 import 'package:modelaif/components/home_header.dart';
 import 'package:modelaif/molde.dart';
 import 'package:modelaif/screens/pattern_screen.dart';
@@ -108,8 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
       /* floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: ImportartMoldeFAB(),*/
 
+      // TODO: Descomentar quando a página de medidas for implementada.
       // BOTTOM NAVIGATION BAR (Barra Inferior Fixa)
-      bottomNavigationBar: Navbar(),
+      // bottomNavigationBar: Navbar(),
     );
   }
 }

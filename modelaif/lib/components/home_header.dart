@@ -75,11 +75,12 @@ class _HomeHeaderState extends State<HomeHeader> {
             ),
             gap,
 
+            // TODO: Descomentar quando o filtro for implementado.
             // Botão de Filtro
-            IconButton(
+            /*IconButton(
               icon: Icon(Icons.filter_list),
               onPressed: () {},
-            ),
+            ),*/
           ],
         ),
       ),
