@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late List<Molde> moldesBase;
   late List<Molde> filteredMoldes;
-  
+
   @override
   initState() {
     super.initState();
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: theme.colorScheme.surface,
@@ -62,10 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SobreScreen())
+                    MaterialPageRoute(builder: (context) => SobreScreen()),
                   );
-                }
-              )
+                },
+              ),
             ],
           ),
         ),
@@ -75,37 +75,35 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: HomeHeader(
         searchBarOnChanged: filterMoldes,
         scaffoldKey: _scaffoldKey,
-        searchController: searchController
+        searchController: searchController,
       ) as PreferredSizeWidget,
 
       // BODY (Corpo principal com rolagem ativada)
       body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: GridView.builder(
-        itemCount: filteredMoldes.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 0.8,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: GridView.builder(
+          itemCount: filteredMoldes.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 0.8,
+          ),
+          itemBuilder: (context, index) {
+            final Molde molde = filteredMoldes[index];
+            return AnimatedPatternCard(
+              title: molde.modelo,
+              onTap: () {
+                // Navegação para a PatternScreen passando o nome da categoria
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PatternScreen(molde)),
+                );
+              },
+            );
+          },
         ),
-        itemBuilder: (context, index) {
-          final Molde molde = filteredMoldes[index];
-          return AnimatedPatternCard(
-            title: molde.modelo,
-            onTap: () {
-              // Navegação para a PatternScreen passando o nome da categoria
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PatternScreen(molde),
-                ),
-              );
-            },
-          );
-        },
       ),
-    ),
 
       // Botão de ação flutuante (FAB)
       /* floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
