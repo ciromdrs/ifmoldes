@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (context, index) {
             final Molde molde = filteredMoldes[index];
             return AnimatedPatternCard(
-              title: molde.modelo,
+              molde: molde,
               onTap: () {
                 // Navegação para a PatternScreen passando o nome da categoria
                 Navigator.push(

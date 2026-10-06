@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:modelaif/molde.dart';
 
 // WIDGET AUXILIAR (Caixa clicável com animação de encolher ao toque)
 class AnimatedPatternCard extends StatefulWidget {
-  final String title;
+  /// Nome do molde.
+  final Molde molde;
+
+  /// Função executada ao clicar no card.
   final VoidCallback onTap;
 
   const AnimatedPatternCard({super.key, 
-    required this.title,
+    required this.molde,
     required this.onTap,
   });
 
@@ -57,11 +61,11 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.title,
+                      widget.molde.modelo,
                       style: theme.textTheme.labelLarge
                     ),
                     Text(
-                      'Mais informações',
+                      'por ${widget.molde.modelista}',
                       style: theme.textTheme.labelSmall
                     )
                   ]
