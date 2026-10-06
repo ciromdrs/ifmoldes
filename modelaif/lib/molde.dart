@@ -87,7 +87,7 @@ class Passo {
 final List<Molde> moldesExemplo = [
   Molde(
     modelo: 'Saia Reta',
-    modelista: "Ana Silva",
+    modelista: "Edson Bottini",
     referencia: "S2020",
     imagem: "assets/moldes/saia_reta/saia_reta__Principal.png",
     tabelaPadrao: TabelaDeMedidas({
@@ -186,9 +186,9 @@ final List<Molde> moldesExemplo = [
   ),
   Molde(
     modelo: 'Calça Jeans',
-    modelista: "Bottini",
+    modelista: "Ana Silva",
     referencia: "C2020",
-    imagem: "exmplo.png",
+    imagem: "exemplo.png",
     tabelaPadrao: TabelaDeMedidas({}),
     partes: [
       Parte(
@@ -201,9 +201,9 @@ final List<Molde> moldesExemplo = [
   ),
   Molde(
     modelo: 'Camiseta',
-    modelista: "Modelista Exemplo",
+    modelista: "Bruno Souza",
     referencia: "C2020",
-    imagem: "exmplo.png",
+    imagem: "exemplo.png",
     tabelaPadrao: TabelaDeMedidas({}),
     partes: [
       Parte(
@@ -216,10 +216,10 @@ final List<Molde> moldesExemplo = [
   ),
   Molde(
     modelo: 'Vestido',
-    modelista: "Modelista Exemplo",
+    modelista: "Carla Santos",
     referencia: "V2020",
     tabelaPadrao: TabelaDeMedidas({}),
-    imagem: "exmplo.png",
+    imagem: "exemplo.png",
     partes: [
       Parte(
         nome: "Exemplo",
@@ -231,9 +231,9 @@ final List<Molde> moldesExemplo = [
   ),
   Molde(
     modelo: 'Short',
-    modelista: "Modelista Exemplo",
+    modelista: "Daniel Araújo",
     referencia: "S2020",
-    imagem: "exmplo.png",
+    imagem: "exemplo.png",
     tabelaPadrao: TabelaDeMedidas({}),
     partes: [
       Parte(
