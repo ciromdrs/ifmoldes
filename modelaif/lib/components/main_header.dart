@@ -4,12 +4,14 @@ class HomeHeader extends AppBar {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final TextEditingController searchController;
   final void Function(String)? searchBarOnChanged;
+  final String searchPlaceholder;
 
   HomeHeader({
     super.key,
     required this.scaffoldKey,
     required this.searchController,
-    required this.searchBarOnChanged
+    required this.searchBarOnChanged,
+    this.searchPlaceholder = 'Buscar molde'
   });
 
   @override
@@ -18,11 +20,13 @@ class HomeHeader extends AppBar {
 
 class _HomeHeaderState extends State<HomeHeader> {
   late void Function(String)? searchBarOnChanged;
+  late String searchPlaceholder;
 
   @override
   initState() {
     super.initState();
     searchBarOnChanged = widget.searchBarOnChanged;
+    searchPlaceholder = widget.searchPlaceholder;
   }
 
   @override
@@ -58,7 +62,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                       child: TextFormField(
                         onChanged: searchBarOnChanged,
                         decoration: InputDecoration(
-                          hintText: 'Buscar molde',
+                          hintText: searchPlaceholder,
                           border: InputBorder.none,
                         ),
                       ),
