@@ -31,9 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void filterMoldes(String value) {
     setState(() {
-      filteredMoldes = moldesBase.where(
-        (Molde molde) => removeDiacritics(molde.modelo.toLowerCase()).contains(value.toLowerCase())
-      ).toList();
+      filteredMoldes = moldesBase
+          .where(
+            (Molde molde) =>
+                removeDiacritics(molde.modelo.toLowerCase())
+                    .contains(removeDiacritics(value.toLowerCase())),
+          )
+          .toList();
     });
   }
 
