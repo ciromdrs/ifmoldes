@@ -51,6 +51,12 @@ class _AnimatedPatternCardState extends State<AnimatedPatternCard> {
                     color: theme.colorScheme.surfaceContainerLowest,
                     borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                   ),
+                  child:
+                    /// TODO: Trocar para ImageProvider quando houver moldes importados de arquivos externos.
+                    /// BUG: No Linux e Android, carrega infinitamente e não abre.
+                    /// No Android, abre na segunda tentativa.
+                    /// No Chrome, abre normalmente.
+                    Image.asset(widget.molde.imagem, width: double.infinity),
                 ),
               ),
 
