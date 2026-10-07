@@ -1,4 +1,4 @@
-# ModelaIF
+# IFMoldes
 Projeto desenvolvido no Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte (IFRN) *Campus* Caicó, em prol do desenvolvimento de um aplicativo móvel para modelagem de peças de roupa, a ser utilizado pelos estudantes do Curso Técnico em Vestuário.
 
 ### Desenvolvedores
