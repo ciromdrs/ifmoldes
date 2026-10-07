@@ -4,6 +4,7 @@ import 'package:diacritic/diacritic.dart';
 import 'package:modelaif/components/main_header.dart';
 import 'package:modelaif/medidas.dart';
 import 'package:modelaif/components/nav_bar.dart';
+import 'package:modelaif/models.dart';
 
 class MedidasScreen extends StatefulWidget {
   const MedidasScreen({super.key});
@@ -15,8 +16,8 @@ class MedidasScreen extends StatefulWidget {
 class MedidasScreenState extends State<MedidasScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController searchController = TextEditingController();
-  late List<TabelaDeMedidas> medidasBase;
-  late List<TabelaDeMedidas> filteredMedidas;
+  late List<TabelaDeMedidasModel> medidasBase;
+  late List<TabelaDeMedidasModel> filteredMedidas;
 
   @override
   initState() {
@@ -29,8 +30,8 @@ class MedidasScreenState extends State<MedidasScreen> {
     setState(() {
       filteredMedidas = medidasBase
           .where(
-            (TabelaDeMedidas medidas) =>
-                removeDiacritics(medidas['nome'].toLowerCase())
+            (TabelaDeMedidasModel medidas) =>
+                removeDiacritics(medidas.nome.toLowerCase())
                     .contains(removeDiacritics(value.toLowerCase())),
           )
           .toList();

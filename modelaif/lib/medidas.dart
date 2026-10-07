@@ -1,7 +1,7 @@
 /// Tabela de medidas de uma pessoa.
 library;
 
-extension type TabelaDeMedidas(Map<String, dynamic> map) implements Map<String, dynamic> {
+extension type TabelaDeMedidas(Map<String, double> map) implements Map<String, double> {
   /// Atualiza os valores desta tabela a partir da [outra].
   /// Se alguma chave desta tabela não existir na [outra], o [valorPadrao] será usado.
   void atualizar(TabelaDeMedidas outra, double valorPadrao) {
@@ -19,8 +19,8 @@ extension type TabelaDeMedidas(Map<String, dynamic> map) implements Map<String, 
   }
 
   /// Retorna a instância como uma lista ordenada.
-  List<MapEntry<String, dynamic>> toList() {
-    List<MapEntry<String, dynamic>> ordenada = map.entries.toList();
+  List<MapEntry<String, double>> toList() {
+    List<MapEntry<String, double>> ordenada = map.entries.toList();
     ordenada.sort((a, b) => a.key.compareTo(b.key),);
     return ordenada;
   }
