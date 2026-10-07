@@ -4,9 +4,8 @@ import 'package:modelaif/components/main_header.dart';
 import 'package:modelaif/molde.dart';
 import 'package:modelaif/screens/pattern_screen.dart';
 import 'package:modelaif/components/pattern_card.dart';
-import 'package:modelaif/screens/sobre_screen.dart';
 import 'package:modelaif/components/nav_bar.dart';
-import 'package:modelaif/components/fab_importar.dart';
+import 'package:modelaif/components/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -53,25 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true,
 
       // DRAWER (Menu Lateral de Hambúrguer)
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.question_mark),
-                title: const Text('Sobre'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SobreScreen()),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: MainDrawer(),
 
       // APP BAR (Barra Superior Fixa)
       appBar: HomeHeader(

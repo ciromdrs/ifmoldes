@@ -7,7 +7,6 @@ class SobreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final mediaQuery = MediaQuery.of(context);
     final backBar = BackBar(title: 'Sobre', context: context);
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:diacritic/diacritic.dart';
 
 import 'package:modelaif/components/main_header.dart';
-import 'package:modelaif/medidas.dart';
+import 'package:modelaif/components/drawer.dart';
 import 'package:modelaif/components/nav_bar.dart';
 import 'package:modelaif/models.dart';
 
@@ -50,6 +50,8 @@ class MedidasScreenState extends State<MedidasScreen> {
         searchBarOnChanged: filterMedidas,
         searchPlaceholder: 'Buscar medidas'
       ),
+
+      drawer: MainDrawer(),
 
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
