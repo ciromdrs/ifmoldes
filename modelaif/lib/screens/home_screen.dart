@@ -5,6 +5,8 @@ import 'package:modelaif/molde.dart';
 import 'package:modelaif/screens/pattern_screen.dart';
 import 'package:modelaif/components/pattern_card.dart';
 import 'package:modelaif/screens/sobre_screen.dart';
+import 'package:modelaif/components/nav_bar.dart';
+import 'package:modelaif/components/fab_importar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -106,12 +108,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       // Botão de ação flutuante (FAB)
-      /* floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: ImportartMoldeFAB(),*/
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      // floatingActionButton: ImportartMoldeFAB(),
 
       // TODO: Descomentar quando a página de medidas for implementada.
       // BOTTOM NAVIGATION BAR (Barra Inferior Fixa)
-      // bottomNavigationBar: Navbar(),
+      bottomNavigationBar: Navbar(),
     );
   }
 }

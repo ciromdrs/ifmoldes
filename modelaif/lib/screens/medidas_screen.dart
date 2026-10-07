@@ -3,6 +3,7 @@ import 'package:diacritic/diacritic.dart';
 
 import 'package:modelaif/components/main_header.dart';
 import 'package:modelaif/medidas.dart';
+import 'package:modelaif/components/nav_bar.dart';
 
 class MedidasScreen extends StatefulWidget {
   const MedidasScreen({super.key});
@@ -46,6 +47,8 @@ class MedidasScreenState extends State<MedidasScreen> {
         searchBarOnChanged: filterMedidas,
         searchPlaceholder: 'Buscar medidas'
       ),
+      
+      bottomNavigationBar: Navbar(selectedIndex: 1,),
     );
   }
 }

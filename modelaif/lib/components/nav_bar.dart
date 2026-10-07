@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 
+import 'package:modelaif/screens/home_screen.dart';
+import 'package:modelaif/screens/medidas_screen.dart';
+
 class Navbar extends StatefulWidget {
-  const Navbar({super.key});
+  final int selectedIndex;
+
+  const Navbar({super.key, this.selectedIndex = 0});
 
   @override
   State<Navbar> createState() => _NavbarState();
 }
 
 class _NavbarState extends State<Navbar> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +49,13 @@ class _NavbarState extends State<Navbar> {
           onDestinationSelected: (int index) {
             setState(() {
               _selectedIndex = index;
+              final Widget screen = [HomeScreen(), MedidasScreen()][index];
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => screen
+                )
+              );
             });
           },
           backgroundColor: Colors.transparent,
