@@ -28,9 +28,33 @@ extension type TabelaDeMedidas(Map<String, double> map) implements Map<String, d
 
 /// Nome padrão para medidas.
 class MedidasPadrao {
-  static const String busto = 'Busto';
-  static const String cintura = 'Cintura';
-  static const String quadril = 'Quadril';
-  static const String alturaDoQuadril = 'Altura do quadril';
-  // TODO: Adicionar demais nomes.
+  static const String busto                     = 'Busto';
+  static const String cintura                   = 'Cintura';
+  static const String quadril                   = 'Quadril';
+  static const String alturaDoQuadril           = 'Altura do quadril';
+  static const String comprimentoCorpoFrente    = 'Comprimento do corpo (frente)';
+  static const String centroFrente              = 'Centro (frente)';
+  static const String cavaFrente                = 'Cava (frente)';
+  static const String alturaDoBusto             = 'Altura do busto';
+  static const String separacaoDoBusto          = 'Separação do busto';
+  static const String baseDoBojo                = 'Base do bojo';
+  static const String comprimentoCorpoCostas    = 'Comprimento do corpo (costas)';
+  static const String ombro                     = 'Ombro';
+  static const String alturaDoCotovelo          = 'Altura do cotovelo';
+  static const String comprimentoDaManga        = 'Comprimento da manga';
+  static const String circunferenciaDoBraco     = 'Cincunferância do braço';
+  static const String circunferenciaDoCotovelo  = 'Circunferência do cotovelo';
+  static const String circunferenciaDoPulso     = 'Cincunferência do pulso';
+  static const String punho                     = 'Punho';
+  static const String alturaDoGancho            = 'Altura do gancho';
+  static const String entrepernas               = 'Entre pernas';
+  static const String circunferenciaDaCoxa      = 'Circunferência da coxa';
+  static const String circunferenciaDoJoelho    = 'Circunferência do joelho';
+  static const String circunferenciaDoTornozelo = 'Circunferência do tornozelo';
+  static const String alturaDoJoelho            = 'Alltura do joelho';
+  static const String circunferenciaDaCabeca    = 'Circunferência da cabeça';
+}
+
+/// MedidasModel representa as medidas de uma pessoa.
+class MedidasModel {
 }
