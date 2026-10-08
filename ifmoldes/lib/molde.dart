@@ -58,6 +58,18 @@ class Parte {
 }
 
 
+class MedidaException implements Exception {
+  final String mensagem;
+
+  const MedidaException([mensagem = 'Ocorreu um problema com a(s) medida(s) utilizada(s).']);
+
+  @override
+  toString() {
+    return 'MedidaException: ' + mensagem;
+  }
+}
+
+
 /// Um passo para cortar uma parte de um molde.
 class Passo {
   /// Descrição de como executar o passo. Ex.: "Trace uma reta do ponto A ao ponto B".
@@ -76,10 +88,12 @@ class Passo {
 
   /// Calcula a medida proporcionalmente à tabela informada.
   double medidaProporcional(TabelaDeMedidas tabela) {
-    // TODO: Verificar se é melhor retornar 0 ou lançar exceção caso a medida não exista na tabela.
-    double m = tabela.map[medida] ?? 0;
-    m /= divisor;
-    m += incremento;
-    return m;
+    double? m = tabela.map[medida];
+    if (m != null) {
+      m /= divisor;
+      m += incremento;
+      return m;
+    }
+    throw MedidaException('A tabela passada não contém a medida "$medida"');
   }
 }
