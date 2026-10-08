@@ -1,4 +1,5 @@
 import 'package:ifmoldes/molde.dart';
+import 'package:ifmoldes/medidas.dart';
 
 final List<Molde> moldesExemplo = [
   Molde(

@@ -61,11 +61,11 @@ class Parte {
 class MedidaException implements Exception {
   final String mensagem;
 
-  const MedidaException([mensagem = 'Ocorreu um problema com a(s) medida(s) utilizada(s).']);
+  const MedidaException([this.mensagem = 'Ocorreu um problema com a(s) medida(s) utilizada(s).']);
 
   @override
   toString() {
-    return 'MedidaException: ' + mensagem;
+    return 'MedidaException: $mensagem';
   }
 }
 

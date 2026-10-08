@@ -7,7 +7,7 @@ import 'package:ifmoldes/components/pattern_card.dart';
 import 'package:ifmoldes/components/nav_bar.dart';
 import 'package:ifmoldes/components/drawer.dart';
 
-import 'package:ifmoldes/data/moldes.dart'
+import 'package:ifmoldes/data/moldes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
