@@ -2,12 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:ifmoldes/medidas.dart';
 import 'package:ifmoldes/molde.dart';
 
-class ParteWidget extends StatelessWidget {
+class ParteWidget extends StatefulWidget {
   final Parte parte;
 
   final TabelaDeMedidas tabelaDeMedidas;
 
-  const ParteWidget(this.parte, this.tabelaDeMedidas, {super.key});
+  final Map<String, TextEditingController> controllers;
+
+  const ParteWidget(this.parte, this.tabelaDeMedidas, this.controllers, {super.key});
+
+  @override
+  State<ParteWidget> createState() => _ParteWidgetState(); 
+}
+
+class _ParteWidgetState extends State<ParteWidget> {
+  late Parte parte;
+  late TabelaDeMedidas tabelaDeMedidas;
+  late Map<String, TextEditingController> controllers;
+
+  @override
+  initState() {
+    super.initState();
+    parte = widget.parte;
+    tabelaDeMedidas = widget.tabelaDeMedidas;
+    controllers = Map.from(widget.controllers);
+
+    for (final pair in controllers.entries) {
+      pair.value.addListener(() {
+        setState(() {
+          tabelaDeMedidas[pair.key] = double.parse(pair.value.text);
+        });
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

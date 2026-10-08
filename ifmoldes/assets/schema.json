@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lista de medidas de costura",
+  "description": "Schema para uma lista de medidas corporais no contexto de costura.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "nome": {
+        "type": "string",
+        "default": "Sem nome",
+        "description": "Pode ser o nome da pessoa, por exemplo."
+      },
+      "dataCriacao": {
+        "type": "string",
+        "format": "date-time",
+        "readOnly": true,
+        "description": "Data e hora de criação geradas automaticamente."
+      },
+      "ultimaModificacao": {
+        "type": "string",
+        "format": "date-time",
+        "readOnly": true,
+        "description": "Data e hora da última modificação geradas automaticamente."
+      },
+      "busto": { "type": "number", "minimum": 0 },
+      "cintura": { "type": "number", "minimum": 0 },
+      "quadril": { "type": "number", "minimum": 0 },
+      "comprimentoCorpoFrente": { "type": "number", "minimum": 0 },
+      "centroFrente": { "type": "number", "minimum": 0 },
+      "cavaACavaFrente": { "type": "number", "minimum": 0 },
+      "alturaDoBusto": { "type": "number", "minimum": 0 },
+      "separacaoDoBusto": { "type": "number", "minimum": 0 },
+      "baseDoBojo": { "type": "number", "minimum": 0 },
+      "comprimentoCorpoCostas": { "type": "number", "minimum": 0 },
+      "ombro": { "type": "number", "minimum": 0 },
+      "alturaDoCotovelo": { "type": "number", "minimum": 0 },
+      "comprimentoDaManga": { "type": "number", "minimum": 0 },
+      "circunferenciaDoBraco": { "type": "number", "minimum": 0 },
+      "circunferenciaDoCotovelo": { "type": "number", "minimum": 0 },
+      "circunferenciaDoPulso": { "type": "number", "minimum": 0 },
+      "punho": { "type": "number", "minimum": 0 },
+      "alturaDoGancho": { "type": "number", "minimum": 0 },
+      "alturaDoQuadril": { "type": "number", "minimum": 0 },
+      "entrepernas": { "type": "number", "minimum": 0 },
+      "circunferenciaDaCoxa": { "type": "number", "minimum": 0 },
+      "circunferenciaDoJoelho": { "type": "number", "minimum": 0 },
+      "circunferenciaDoTornozelo": { "type": "number", "minimum": 0 },
+      "alturaDoJoelho": { "type": "number", "minimum": 0 },
+      "circunferenciaDaCabeca": { "type": "number", "minimum": 0 }
+    },
+    "required": [
+      "nome",
+      "dataCriacao",
+      "ultimaModificacao"
+    ],
+    "default": {
+      "nome": "Sem nome",
+      "dataCriacao": "1970-01-01T00:00:00.000Z",
+      "ultimaModificacao": "1970-01-01T00:00:00.000Z",
+      "busto": null,
+      "cintura": null,
+      "quadril": null,
+      "comprimentoCorpoFrente": null,
+      "centroFrente": null,
+      "cavaACavaFrente": null,
+      "alturaDoBusto": null,
+      "separacaoDoBusto": null,
+      "baseDoBojo": null,
+      "comprimentoCorpoCostas": null,
+      "ombro": null,
+      "alturaDoCotovelo": null,
+      "comprimentoDaManga": null,
+      "circunferenciaDoBraco": null,
+      "circunferenciaDoCotovelo": null,
+      "circunferenciaDoPulso": null,
+      "punho": null,
+      "alturaDoGancho": null,
+      "alturaDoQuadril": null,
+      "entrepernas": null,
+      "circunferenciaDaCoxa": null,
+      "circunferenciaDoJoelho": null,
+      "circunferenciaDoTornozelo": null,
+      "alturaDoJoelho": null,
+      "circunferenciaDaCabeca": null
+    }
+  }
+}
