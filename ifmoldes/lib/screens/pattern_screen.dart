@@ -8,15 +8,15 @@ import 'package:ifmoldes/molde.dart';
 
 class PatternScreen extends StatelessWidget {
   final Molde molde;
+  final Map<String, TextEditingController> controllers = {};
 
-  const PatternScreen(this.molde, {super.key});
+  PatternScreen(this.molde, {super.key});
 
   @override
   Widget build(BuildContext context) {
     final backBar = BackBar(title: molde.modelo, context: context);
-    // TODO: Carregar medidas a partir do form.
     final parteWidgets = molde.partes
-        .map((parte) => ParteWidget(parte, molde.tabelaPadrao))
+        .map((parte) => ParteWidget(parte, molde.tabelaPadrao, controllers))
         .toList();
 
     return Scaffold(
@@ -31,7 +31,7 @@ class PatternScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               clipBehavior: Clip.antiAlias,
-              child: FormMedidas(molde.tabelaPadrao),
+              child: FormMedidas(molde.tabelaPadrao, controllers),
             ),
             ...parteWidgets.map(
               (parte) => Padding(

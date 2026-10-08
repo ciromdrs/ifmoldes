@@ -92,7 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
       // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       // floatingActionButton: ImportartMoldeFAB(),
 
-      // TODO: Descomentar quando a página de medidas for implementada.
       // BOTTOM NAVIGATION BAR (Barra Inferior Fixa)
       bottomNavigationBar: Navbar(),
     );
