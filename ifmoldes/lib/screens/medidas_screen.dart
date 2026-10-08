@@ -6,6 +6,8 @@ import 'package:ifmoldes/components/drawer.dart';
 import 'package:ifmoldes/components/nav_bar.dart';
 import 'package:ifmoldes/models.dart';
 
+import 'package:ifmoldes/data/medidas.dart';
+
 class MedidasScreen extends StatefulWidget {
   const MedidasScreen({super.key});
 
