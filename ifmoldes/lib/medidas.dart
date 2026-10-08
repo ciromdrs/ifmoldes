@@ -54,7 +54,3 @@ class MedidasPadrao {
   static const String alturaDoJoelho            = 'Alltura do joelho';
   static const String circunferenciaDaCabeca    = 'Circunferência da cabeça';
 }
-
-/// MedidasModel representa as medidas de uma pessoa.
-class MedidasModel {
-}
