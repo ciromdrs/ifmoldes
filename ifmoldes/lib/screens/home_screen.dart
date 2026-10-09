@@ -7,6 +7,8 @@ import 'package:ifmoldes/components/pattern_card.dart';
 import 'package:ifmoldes/components/nav_bar.dart';
 import 'package:ifmoldes/components/drawer.dart';
 
+import 'package:ifmoldes/data/moldes.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -90,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Botão de ação flutuante (FAB)
       // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: ImportartMoldeFAB(),
+      // floatingActionButton: FABFlutuante(texto: 'Importar molde', iconData: Icons.add, callback: () {}),
 
       // BOTTOM NAVIGATION BAR (Barra Inferior Fixa)
       bottomNavigationBar: Navbar(),

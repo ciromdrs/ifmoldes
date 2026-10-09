@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ImportartMoldeFAB extends StatelessWidget {
-  const ImportartMoldeFAB({super.key});
+class FABFlutuante extends StatelessWidget {
+  final String texto;
+  final IconData iconData;
+  final VoidCallback onPressed;
+
+  const FABFlutuante({super.key, required this.texto, required this.iconData, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +18,7 @@ class ImportartMoldeFAB extends StatelessWidget {
         width: mediaQuery.size.width * .45,
         height: 60,
         child: FloatingActionButton(
-          onPressed: () {
-            return;
-          },
+          onPressed: onPressed,
           backgroundColor: theme.colorScheme.primary,
           foregroundColor: theme.colorScheme.onPrimary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
@@ -24,8 +26,8 @@ class ImportartMoldeFAB extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(Icons.add, size: 23),
-              Text('Importar molde', style: TextStyle(fontSize: 16))
+              Icon(iconData, size: 23),
+              Text(texto, style: TextStyle(fontSize: 16))
             ],
           )
         )
