@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:ifmoldes/components/back_bar.dart';
+import 'package:ifmoldes/components/fab_flutuante.dart';
+import 'package:ifmoldes/screens/medidas_screen.dart';
 import 'package:ifmoldes/medidas.dart';
 
 class MedidaScreen extends StatefulWidget {
@@ -89,7 +91,21 @@ class _MedidaScreenState extends State<MedidaScreen> {
             )
           ]
         ),
-      )
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FABFlutuante(
+        texto: 'Salvar',
+        iconData: Icons.check,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MedidasScreen()
+            )
+          );
+        }
+      ),
     );
   }
 }
