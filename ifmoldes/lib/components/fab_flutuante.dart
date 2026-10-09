@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-class AdicionarFAB extends StatelessWidget {
+class FABFlutuante extends StatelessWidget {
   final String texto;
+  final IconData iconData;
   final VoidCallback onPressed;
 
-  const AdicionarFAB({super.key, required this.texto, required this.onPressed});
+  const FABFlutuante({super.key, required this.texto, required this.iconData, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class AdicionarFAB extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(Icons.add, size: 23),
+              Icon(iconData, size: 23),
               Text(texto, style: TextStyle(fontSize: 16))
             ],
           )

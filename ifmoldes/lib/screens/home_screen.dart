@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Botão de ação flutuante (FAB)
       // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: AdicionarFAB(texto: 'Importar molde' callback: () {}),
+      // floatingActionButton: FABFlutuante(texto: 'Importar molde', iconData: Icons.add, callback: () {}),
 
       // BOTTOM NAVIGATION BAR (Barra Inferior Fixa)
       bottomNavigationBar: Navbar(),
