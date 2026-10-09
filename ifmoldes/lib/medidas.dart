@@ -53,4 +53,34 @@ class MedidasPadrao {
   static const String circunferenciaDoTornozelo = 'Circunferência do tornozelo';
   static const String alturaDoJoelho            = 'Alltura do joelho';
   static const String circunferenciaDaCabeca    = 'Circunferência da cabeça';
+
+  static List<String> toList() {
+    return [
+      'Busto',
+      'Cintura',
+      'Quadril',
+      'Altura do quadril',
+      'Comprimento do corpo (frente)',
+      'Centro (frente)',
+      'Cava (frente)',
+      'Altura do busto',
+      'Separação do busto',
+      'Base do bojo',
+      'Comprimento do corpo (costas)',
+      'Ombro',
+      'Altura do cotovelo',
+      'Comprimento da manga',
+      'Cincunferância do braço',
+      'Circunferência do cotovelo',
+      'Cincunferência do pulso',
+      'Punho',
+      'Altura do gancho',
+      'Entre pernas',
+      'Circunferência da coxa',
+      'Circunferência do joelho',
+      'Circunferência do tornozelo',
+      'Alltura do joelho',
+      'Circunferência da cabeça'
+    ];
+  }
 }
