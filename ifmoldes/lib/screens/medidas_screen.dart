@@ -4,7 +4,9 @@ import 'package:diacritic/diacritic.dart';
 import 'package:ifmoldes/components/main_header.dart';
 import 'package:ifmoldes/components/drawer.dart';
 import 'package:ifmoldes/components/nav_bar.dart';
+import 'package:ifmoldes/components/fab_adicionar.dart';
 import 'package:ifmoldes/models.dart';
+import 'package:ifmoldes/screens/medida_screen.dart';
 
 import 'package:ifmoldes/data/medidas.dart';
 
@@ -110,6 +112,19 @@ class MedidasScreenState extends State<MedidasScreen> {
             )
           )
         ]
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: AdicionarFAB(
+        texto: 'Registrar medida',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MedidaScreen()
+            )
+          );
+        }
       ),
       
       bottomNavigationBar: Navbar(selectedIndex: 1,),
