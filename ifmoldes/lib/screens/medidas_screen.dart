@@ -69,6 +69,34 @@ class MedidasScreenState extends State<MedidasScreen> {
               itemCount: filteredMedidas.length,
               itemBuilder: (context, index) {
                 final TabelaDeMedidasModel medidas = filteredMedidas[index];
+                const List<String> meses = [
+                  'janeiro',
+                  'fevereiro',
+                  'março',
+                  'abril',
+                  'maio',
+                  'junho',
+                  'julho',
+                  'agosto',
+                  'setembro',
+                  'outubro',
+                  'novembro',
+                  'dezembro',
+                ];
+                String hora = medidas.ultimaModificacao.hour.toString();
+                if (hora.length == 1) {
+                  hora = '0$hora';
+                }
+                String minuto = medidas.ultimaModificacao.minute.toString();
+                if (minuto.length == 1) {
+                  minuto = '0$minuto';
+                }
+                String segundo = medidas.ultimaModificacao.second.toString();
+                if (segundo.length == 1) {
+                  segundo = '0$segundo';
+                }
+                final String textoUltimaModificacao = '''${medidas.ultimaModificacao.day} de ${meses[medidas.ultimaModificacao.month - 1]} de ${medidas.ultimaModificacao.year} às $hora:$minuto:$segundo''';
+
                 return Container(
                   margin: EdgeInsets.only(left: 28.0, right: 28.0),
                   decoration: BoxDecoration(
@@ -97,7 +125,7 @@ class MedidasScreenState extends State<MedidasScreen> {
                                 )
                               ),
                               Text(
-                                medidas.dataCriacao.toString(),
+                                textoUltimaModificacao,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: theme.colorScheme.onSurfaceVariant
