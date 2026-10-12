@@ -19,6 +19,7 @@ class _MedidaScreenState extends State<MedidaScreen> {
   final TextEditingController nomeController = TextEditingController();
   final List<String> listaDeMedidas = MedidasPadrao.toList();
   final Map<String, TextEditingController> medidasControllers = {};
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late List<TabelaDeMedidasModel> medidaModels;
 
   @override
@@ -66,13 +67,27 @@ class _MedidaScreenState extends State<MedidaScreen> {
             Row(
               children: [
                 Expanded(
-                  child: TextFormField(
-                    controller: nomeController,
-                    decoration: InputDecoration(
-                      label: Text('Nome da medida'),
-                      fillColor: theme.colorScheme.surfaceContainerHighest,
-                      filled: true
-                    ),
+                  child: Form(
+                    key: formKey,
+                    child: TextFormField(
+                      controller: nomeController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Insira um nome para a medida';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        label: Text('Nome da medida'),
+                        fillColor: theme.colorScheme.surfaceContainerHighest,
+                        filled: true,
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: theme.colorScheme.error
+                          )
+                        )
+                      ),
+                    )
                   )
                 ),
                 IconButton(
@@ -129,6 +144,10 @@ class _MedidaScreenState extends State<MedidaScreen> {
         texto: 'Salvar',
         iconData: Icons.check,
         onPressed: () {
+          bool valido = formKey.currentState!.validate();
+          if (!valido) {
+            return;
+          }
           criarMedida();
           Navigator.push(
             context,
