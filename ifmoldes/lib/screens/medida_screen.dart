@@ -27,6 +27,27 @@ class _MedidaScreenState extends State<MedidaScreen> {
     medidaModels = widget.medidaModels;
   }
 
+  void criarMedida() {
+    TabelaDeMedidas tabela = TabelaDeMedidas({});
+    for (final medida in MedidasPadrao.toList()) {
+      if (medidasControllers[medida] != null && medidasControllers[medida]!.text.isNotEmpty) {
+        tabela[medida] = double.parse(medidasControllers[medida]!.text);
+      }
+    }
+
+    TabelaDeMedidasModel tabelaModel = TabelaDeMedidasModel(
+      nome: nomeController.text,
+      tabela: tabela,
+      dataCriacao: DateTime.now(),
+      ultimaModificacao: DateTime.now()
+    );
+
+    setState(() {
+      medidaModels.add(tabelaModel);
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -108,6 +129,7 @@ class _MedidaScreenState extends State<MedidaScreen> {
         texto: 'Salvar',
         iconData: Icons.check,
         onPressed: () {
+          criarMedida();
           Navigator.push(
             context,
             MaterialPageRoute(
