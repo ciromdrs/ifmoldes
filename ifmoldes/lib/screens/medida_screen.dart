@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:ifmoldes/components/back_bar.dart';
 import 'package:ifmoldes/components/fab_flutuante.dart';
+import 'package:ifmoldes/models.dart';
 import 'package:ifmoldes/screens/medidas_screen.dart';
 import 'package:ifmoldes/medidas.dart';
 
 class MedidaScreen extends StatefulWidget {
-  const MedidaScreen({super.key});
+  final List<TabelaDeMedidasModel> medidaModels;
+
+  const MedidaScreen({super.key, required this.medidaModels});
 
   @override
   State<MedidaScreen> createState() => _MedidaScreenState();
@@ -16,6 +19,13 @@ class _MedidaScreenState extends State<MedidaScreen> {
   final TextEditingController nomeController = TextEditingController();
   final List<String> listaDeMedidas = MedidasPadrao.toList();
   final Map<String, TextEditingController> medidasControllers = {};
+  late List<TabelaDeMedidasModel> medidaModels;
+
+  @override
+  initState() {
+    super.initState();
+    medidaModels = widget.medidaModels;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +111,7 @@ class _MedidaScreenState extends State<MedidaScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MedidasScreen()
+              builder: (context) => MedidasScreen(medidaModels: medidaModels,)
             )
           );
         }

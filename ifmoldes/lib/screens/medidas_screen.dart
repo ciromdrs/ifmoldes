@@ -11,7 +11,9 @@ import 'package:ifmoldes/screens/medida_screen.dart';
 import 'package:ifmoldes/data/medidas.dart';
 
 class MedidasScreen extends StatefulWidget {
-  const MedidasScreen({super.key});
+  final List<TabelaDeMedidasModel> medidaModels;
+
+  const MedidasScreen({super.key, required this.medidaModels});
 
   @override
   State<MedidasScreen> createState() => MedidasScreenState();
@@ -22,12 +24,14 @@ class MedidasScreenState extends State<MedidasScreen> {
   final TextEditingController searchController = TextEditingController();
   late List<TabelaDeMedidasModel> medidasBase;
   late List<TabelaDeMedidasModel> filteredMedidas;
+  late List<TabelaDeMedidasModel> medidaModels;
 
   @override
   initState() {
     super.initState();
     medidasBase = medidasExemplo;
     filteredMedidas = List.from(medidasBase);
+    medidaModels = widget.medidaModels;
   }
 
   void filterMedidas(String value) {
@@ -122,7 +126,7 @@ class MedidasScreenState extends State<MedidasScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MedidaScreen()
+              builder: (context) => MedidaScreen(medidaModels: medidaModels,)
             )
           );
         }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ifmoldes/data/medidas.dart';
 
 import 'package:ifmoldes/screens/home_screen.dart';
 import 'package:ifmoldes/screens/medidas_screen.dart';
@@ -49,7 +50,7 @@ class _NavbarState extends State<Navbar> {
           onDestinationSelected: (int index) {
             setState(() {
               _selectedIndex = index;
-              final Widget screen = [HomeScreen(), MedidasScreen()][index];
+              final Widget screen = [HomeScreen(), MedidasScreen(medidaModels: medidasExemplo,)][index];
               Navigator.push(
                 context,
                 MaterialPageRoute(
