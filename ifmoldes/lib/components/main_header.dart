@@ -121,7 +121,7 @@ class _HomeHeaderState extends State<HomeHeader> {
               onPressed: () {
                 showModalBottomSheet(
                   context: context,
-                  scrollControlDisabledMaxHeightRatio: .3,
+                  scrollControlDisabledMaxHeightRatio: .34,
                   builder: (BuildContext modalContext) {
                     return Padding(
                       padding: EdgeInsets.only(top: 6.0, left: 10.0),
@@ -152,6 +152,16 @@ class _HomeHeaderState extends State<HomeHeader> {
                             onTap: () {
                               setState(() {
                                 medidaModels!.sort(filterOrdemAlfabetica);
+                              });
+                              onFilter!(medidaModels!);
+                              Navigator.pop(modalContext);
+                            },
+                          ),
+                          ListTile(
+                            title: Text('Modificadas recentemente'),
+                            onTap: () {
+                              setState(() {
+                                medidaModels!.sort(filterModificadasRecentemente);
                               });
                               onFilter!(medidaModels!);
                               Navigator.pop(modalContext);
