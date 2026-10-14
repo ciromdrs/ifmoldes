@@ -54,8 +54,33 @@ add_subdirectory(${FLUTTER_MANAGED_DIR})
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
 
+# GTK 3 still reads font settings from the main xsettings schema, while newer
+# GNOME releases moved those keys to a deprecated schema.
+find_program(GLIB_COMPILE_SCHEMAS glib-compile-schemas)
+if(NOT GLIB_COMPILE_SCHEMAS)
+  message(FATAL_ERROR "glib-compile-schemas is required to build the Linux runner")
+endif()
+
+set(COMPAT_SCHEMA_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/gsettings-schemas")
+file(MAKE_DIRECTORY "${COMPAT_SCHEMA_BUILD_DIR}")
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/runner/org.gnome.settings-daemon.plugins.xsettings.gschema.xml"
+  "${COMPAT_SCHEMA_BUILD_DIR}/org.gnome.settings-daemon.plugins.xsettings.gschema.xml"
+  COPYONLY
+)
+add_custom_command(
+  OUTPUT "${COMPAT_SCHEMA_BUILD_DIR}/gschemas.compiled"
+  COMMAND "${GLIB_COMPILE_SCHEMAS}" --strict "${COMPAT_SCHEMA_BUILD_DIR}"
+  DEPENDS "${COMPAT_SCHEMA_BUILD_DIR}/org.gnome.settings-daemon.plugins.xsettings.gschema.xml"
+  VERBATIM
+)
+add_custom_target(ifmoldes_gsettings_schemas ALL
+  DEPENDS "${COMPAT_SCHEMA_BUILD_DIR}/gschemas.compiled"
+)
+
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
+add_dependencies(${BINARY_NAME} ifmoldes_gsettings_schemas)
 
 # Run the Flutter tool portions of the build. This must not be removed.
 add_dependencies(${BINARY_NAME} flutter_assemble)
@@ -95,6 +120,10 @@ install(TARGETS ${BINARY_NAME} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}"
   COMPONENT Runtime)
 
 install(FILES "${FLUTTER_ICU_DATA_FILE}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
+  COMPONENT Runtime)
+
+install(FILES "${COMPAT_SCHEMA_BUILD_DIR}/gschemas.compiled"
+  DESTINATION "${INSTALL_BUNDLE_DATA_DIR}/glib-2.0/schemas"
   COMPONENT Runtime)
 
 install(FILES "${FLUTTER_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
