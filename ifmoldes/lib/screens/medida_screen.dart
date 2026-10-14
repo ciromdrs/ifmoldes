@@ -8,8 +8,9 @@ import 'package:ifmoldes/medidas.dart';
 
 class MedidaScreen extends StatefulWidget {
   final List<TabelaDeMedidasModel> medidaModels;
+  final TabelaDeMedidasModel? editModel;
 
-  const MedidaScreen({super.key, required this.medidaModels});
+  const MedidaScreen({super.key, required this.medidaModels, this.editModel});
 
   @override
   State<MedidaScreen> createState() => _MedidaScreenState();
@@ -20,12 +21,33 @@ class _MedidaScreenState extends State<MedidaScreen> {
   final List<String> listaDeMedidas = MedidasPadrao.toList();
   final Map<String, TextEditingController> medidasControllers = {};
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String title = 'Criar nova medida';
   late List<TabelaDeMedidasModel> medidaModels;
+  late TabelaDeMedidasModel? editModel;
 
   @override
   initState() {
     super.initState();
     medidaModels = widget.medidaModels;
+    editModel = widget.editModel;
+
+    for (final String medida in listaDeMedidas) {
+      final TextEditingController controller = TextEditingController();
+      if (editModel != null) {
+        if (editModel!.tabela[medida] != null) {
+          controller.text = editModel!.tabela[medida].toString();
+        } else {
+          controller.text = '';
+        }
+      }
+
+      medidasControllers[medida] = controller;
+    }
+
+    if (editModel != null) {
+      title = 'Editar medida ${editModel!.nome}';
+      nomeController.text = editModel!.nome;
+    }
   }
 
   void criarMedida() {
@@ -46,7 +68,22 @@ class _MedidaScreenState extends State<MedidaScreen> {
     setState(() {
       medidaModels.add(tabelaModel);
     });
+  }
 
+  void salvarAlteracoes() {
+    setState(() {
+      medidaModels.remove(editModel);
+      for (final String medida in listaDeMedidas) {
+        if (medidasControllers[medida]!.text.isNotEmpty) {
+          editModel!.tabela[medida] = double.parse(medidasControllers[medida]!.text);
+        } else {
+          editModel!.tabela.remove(medida);
+        }
+      }
+      editModel!.nome = nomeController.text;
+      editModel!.ultimaModificacao = DateTime.now();
+      medidaModels.add(editModel!);
+    });
   }
 
   @override
@@ -109,8 +146,8 @@ class _MedidaScreenState extends State<MedidaScreen> {
                   return SizedBox(height: 12);
                 },
                 itemBuilder: (context, index) {
-                  final TextEditingController controller = TextEditingController();
-                  medidasControllers[listaDeMedidas[index]] = controller;
+                  final TextEditingController controller = medidasControllers[listaDeMedidas[index]]!;
+
                   return Row(
                     children: [
                       Expanded(
@@ -148,7 +185,11 @@ class _MedidaScreenState extends State<MedidaScreen> {
           if (!valido) {
             return;
           }
-          criarMedida();
+          if (editModel != null) {
+            salvarAlteracoes();
+          } else {
+            criarMedida();
+          }
           Navigator.push(
             context,
             MaterialPageRoute(
