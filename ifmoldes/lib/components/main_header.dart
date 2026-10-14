@@ -38,6 +38,16 @@ class _HomeHeaderState extends State<HomeHeader> {
     onFilter = widget.onFilter;
   }
 
+  @override
+  void didUpdateWidget(HomeHeader oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.medidaModels != oldWidget.medidaModels) {
+      setState(() {
+        medidaModels = widget.medidaModels;
+      });
+    }
+  }
+
   int filterNovas(TabelaDeMedidasModel a, TabelaDeMedidasModel b) {
     return a.dataCriacao.compareTo(b.dataCriacao);
   }
