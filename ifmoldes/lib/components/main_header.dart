@@ -81,10 +81,34 @@ class _HomeHeaderState extends State<HomeHeader> {
 
             // TODO: Descomentar quando o filtro for implementado.
             // Botão de Filtro
-            /*IconButton(
+            IconButton(
               icon: Icon(Icons.filter_list),
-              onPressed: () {},
-            ),*/
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  scrollControlDisabledMaxHeightRatio: .3,
+                  builder: (BuildContext context) {
+
+                    return Padding(
+                      padding: EdgeInsets.only(top: 6.0, left: 10.0),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            title: Text('Mais novas'),
+                          ),
+                          ListTile(
+                            title: Text('Mais antigas'),
+                          ),
+                          ListTile(
+                            title: Text('Ordem alfabética'),
+                          ),
+                        ],
+                      )
+                    );
+                  }
+                );
+              },
+            ),
           ],
         ),
       ),
