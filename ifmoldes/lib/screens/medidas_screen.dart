@@ -56,7 +56,13 @@ class MedidasScreenState extends State<MedidasScreen> {
         scaffoldKey: _scaffoldKey,
         searchController: searchController,
         searchBarOnChanged: filterMedidas,
-        searchPlaceholder: 'Buscar medidas'
+        searchPlaceholder: 'Buscar medidas',
+        medidaModels: filteredMedidas,
+        onFilter: (value) {
+          setState(() {
+            filteredMedidas = value;
+          });
+        }
       ),
 
       drawer: MainDrawer(),

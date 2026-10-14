@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:ifmoldes/models.dart';
 
 class HomeHeader extends AppBar {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final TextEditingController searchController;
   final void Function(String)? searchBarOnChanged;
   final String searchPlaceholder;
+  final List<TabelaDeMedidasModel>? medidaModels;
+  final ValueChanged<List<TabelaDeMedidasModel>>? onFilter;
 
   HomeHeader({
     super.key,
     required this.scaffoldKey,
     required this.searchController,
     required this.searchBarOnChanged,
-    this.searchPlaceholder = 'Buscar molde'
+    this.searchPlaceholder = 'Buscar molde',
+    this.medidaModels,
+    this.onFilter
   });
 
   @override
@@ -21,12 +26,32 @@ class HomeHeader extends AppBar {
 class _HomeHeaderState extends State<HomeHeader> {
   late void Function(String)? searchBarOnChanged;
   late String searchPlaceholder;
+  late List<TabelaDeMedidasModel>? medidaModels;
+  late ValueChanged<List<TabelaDeMedidasModel>>? onFilter;
 
   @override
   initState() {
     super.initState();
     searchBarOnChanged = widget.searchBarOnChanged;
     searchPlaceholder = widget.searchPlaceholder;
+    medidaModels = widget.medidaModels;
+    onFilter = widget.onFilter;
+  }
+
+  int filterNovas(TabelaDeMedidasModel a, TabelaDeMedidasModel b) {
+    return a.dataCriacao.compareTo(b.dataCriacao);
+  }
+
+  int filterAntigas(TabelaDeMedidasModel a, TabelaDeMedidasModel b) {
+    return b.dataCriacao.compareTo(a.dataCriacao);
+  }
+
+  int filterModificadasRecentemente(TabelaDeMedidasModel a, TabelaDeMedidasModel b) {
+    return a.ultimaModificacao.compareTo(b.ultimaModificacao);
+  }
+
+  int filterOrdemAlfabetica(TabelaDeMedidasModel a, TabelaDeMedidasModel b) {
+    return a.nome.compareTo(b.nome);
   }
 
   @override
@@ -87,20 +112,40 @@ class _HomeHeaderState extends State<HomeHeader> {
                 showModalBottomSheet(
                   context: context,
                   scrollControlDisabledMaxHeightRatio: .3,
-                  builder: (BuildContext context) {
-
+                  builder: (BuildContext modalContext) {
                     return Padding(
                       padding: EdgeInsets.only(top: 6.0, left: 10.0),
                       child: Column(
                         children: [
                           ListTile(
                             title: Text('Mais novas'),
+                            onTap: () {
+                              // setState(() {
+                                medidaModels!.sort(filterNovas);
+                              // });
+                              onFilter!(medidaModels!);
+                              Navigator.of(modalContext).pop();
+                            },
                           ),
                           ListTile(
                             title: Text('Mais antigas'),
+                            onTap: () {
+                              setState(() {
+                                medidaModels!.sort(filterAntigas);
+                              });
+                              onFilter!(medidaModels!);
+                              Navigator.pop(modalContext);
+                            },
                           ),
                           ListTile(
                             title: Text('Ordem alfabética'),
+                            onTap: () {
+                              setState(() {
+                                medidaModels!.sort(filterOrdemAlfabetica);
+                              });
+                              onFilter!(medidaModels!);
+                              Navigator.pop(modalContext);
+                            },
                           ),
                         ],
                       )
