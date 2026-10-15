@@ -92,7 +92,7 @@ class _MedidaScreenState extends State<MedidaScreen> {
 
     return Scaffold(
       appBar: BackBar(
-        title: 'Criar nova medida',
+        title: title,
         context: context
       ),
 
