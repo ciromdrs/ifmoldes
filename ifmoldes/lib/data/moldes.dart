@@ -47,7 +47,7 @@ final List<Molde> moldesExemplo = [
       ),
       Parte(
         nome: "Costas",
-        quantidade: 1,
+        quantidade: 2,
         imagem: 'assets/moldes/saia_reta/saia_reta__Costas.png',
         passos: [
           Passo(
