@@ -46,8 +46,9 @@ class _ParteWidgetState extends State<ParteWidget> {
     final theme = Theme.of(context);
 
     final decoration = BoxDecoration(
-      color: theme.colorScheme.surface,
+      color: theme.colorScheme.surfaceContainer,
       borderRadius: BorderRadius.all(Radius.circular(16)),
+      border: Border.all(color: theme.colorScheme.outlineVariant, width: 2,)
     );
 
     return Container(
@@ -99,7 +100,15 @@ class _ParteWidgetState extends State<ParteWidget> {
               child: ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => SizedBox(height: 4),
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 1, // The height of the divider
+                    color: theme.colorScheme.outlineVariant, // The color of the divider
+                    thickness: 1, // The thickness of the divider line
+                    indent: 8, // The left padding (indent) of the divider
+                    endIndent: 8, // The right padding (endIndent) of the divider
+                  );
+                },
                 itemCount: parte.passos.length,
                 itemBuilder: (context, index) => Container(
                   decoration: BoxDecoration(
@@ -139,7 +148,6 @@ class PassoWidget extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainer,
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: Padding(
