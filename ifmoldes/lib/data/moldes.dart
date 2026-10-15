@@ -58,7 +58,7 @@ final List<Molde> moldesExemplo = [
           ),
           Passo(
             descricao: "Traçar uma reta do Ponto 1 ao 3 e do 2 ao 4 e unir o Ponto 3 ao 4",
-            medida: 'Comprimento da saia',
+            medida: 'Altura da saia',
             incremento: 2,
           ),
           Passo(
