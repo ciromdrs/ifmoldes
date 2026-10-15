@@ -2,12 +2,12 @@ import 'package:ifmoldes/medidas.dart';
 
 /// Model para TabelaDeMedidas.
 class TabelaDeMedidasModel {
-  final String nome;
+  String nome;
   final TabelaDeMedidas tabela;
   final DateTime dataCriacao;
-  final DateTime ultimaModificacao;
+  DateTime ultimaModificacao;
 
-  const TabelaDeMedidasModel({
+  TabelaDeMedidasModel({
     required this.nome,
     required this.tabela,
     required this.dataCriacao,

@@ -56,7 +56,13 @@ class MedidasScreenState extends State<MedidasScreen> {
         scaffoldKey: _scaffoldKey,
         searchController: searchController,
         searchBarOnChanged: filterMedidas,
-        searchPlaceholder: 'Buscar medidas'
+        searchPlaceholder: 'Buscar medidas',
+        medidaModels: filteredMedidas,
+        onFilter: (value) {
+          setState(() {
+            filteredMedidas = value;
+          });
+        }
       ),
 
       drawer: MainDrawer(),
@@ -97,48 +103,58 @@ class MedidasScreenState extends State<MedidasScreen> {
                 }
                 final String textoUltimaModificacao = '''${medidas.ultimaModificacao.day} de ${meses[medidas.ultimaModificacao.month - 1]} de ${medidas.ultimaModificacao.year} às $hora:$minuto:$segundo''';
 
-                return Container(
-                  margin: EdgeInsets.only(left: 28.0, right: 28.0),
-                  decoration: BoxDecoration(
-                    border: BoxBorder.fromLTRB(bottom: BorderSide(color: theme.colorScheme.outlineVariant))
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 11.0),
-                    child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        spacing: 8.0,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MedidaScreen(medidaModels: medidaModels, editModel: medidas,),
+                      )
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 28.0, right: 28.0),
+                    decoration: BoxDecoration(
+                      border: BoxBorder.fromLTRB(bottom: BorderSide(color: theme.colorScheme.outlineVariant))
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 11.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(Icons.design_services_outlined, size: 22, color: theme.colorScheme.onSurfaceVariant,),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            spacing: .6,
+                          Row(
+                            spacing: 8.0,
                             children: [
-                              Text(
-                                medidas.nome,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: theme.colorScheme.onSurface
-                                )
-                              ),
-                              Text(
-                                textoUltimaModificacao,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: theme.colorScheme.onSurfaceVariant
-                                )
-                              ),
-                            ]
-                          )
-                        ],
+                              Icon(Icons.design_services_outlined, size: 22, color: theme.colorScheme.onSurfaceVariant,),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: .6,
+                                children: [
+                                  Text(
+                                    medidas.nome,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: theme.colorScheme.onSurface
+                                    )
+                                  ),
+                                  Text(
+                                    textoUltimaModificacao,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: theme.colorScheme.onSurfaceVariant
+                                    )
+                                  ),
+                                ]
+                              )
+                            ],
+                          ),
+                          Icon(Icons.file_upload_outlined, color: theme.colorScheme.onSurfaceVariant)
+                        ]
                       ),
-                      Icon(Icons.file_upload_outlined, color: theme.colorScheme.onSurfaceVariant)
-                    ],
+                    )
                   )
-                  ) 
                 );
               }
             )
