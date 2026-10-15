@@ -87,11 +87,11 @@ class Passo {
   Passo({required this.descricao, this.medida, this.divisor = 1, this.incremento = 0});
 
   /// Calcula a medida proporcionalmente à tabela informada.
-  /// Assume 0 (zero) se a [tabela] não tem a [medida] de referência.
-  double medidaProporcional(TabelaDeMedidas tabela) {
-    double m = tabela.map[medida] ?? 0;
-    m /= divisor;
-    m += incremento;
-    return m;
+  /// Retorna [null] se a [tabela] não tem a [medida] de referência.
+  double? medidaProporcional(TabelaDeMedidas tabela) {
+    if (tabela.map[medida] == null) {
+      return null;
+    }
+    return (tabela.map[medida] ?? 0) / divisor + incremento;
   }
 }
