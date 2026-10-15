@@ -136,30 +136,6 @@ class PassoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    String calculo = '';
-
-    // Constrói a linha de cálculo com base nos valores relevantes
-    calculo += passo.medida ?? '';
-    if (passo.divisor != 1) {
-      calculo += ' / ${passo.divisor}';
-    }
-    if (passo.incremento != 0) {
-      if (calculo.isNotEmpty) {
-        calculo += ' + ';
-      }
-      calculo += '${passo.incremento}cm';
-    }
-    // Se há um cálculo relevante, exibe
-    if (calculo.isNotEmpty) {
-      calculo += ' = ';
-    }
-
-    String medidaProporcional;
-    try {
-      medidaProporcional = '${passo.medidaProporcional(tabelaDeMedidas)}cm';
-    } catch (err) {
-      medidaProporcional = '?';
-    }
 
     return Container(
       decoration: BoxDecoration(
@@ -171,7 +147,7 @@ class PassoWidget extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
-          spacing: 4,
+          spacing: 8,
           children: [
             Container(
               decoration: BoxDecoration(
@@ -193,28 +169,7 @@ class PassoWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(passo.descricao),
-                  Wrap(
-                    spacing: 4,
-                    children: [
-                      Text(
-                        calculo,
-                        style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary,
-                          borderRadius: BorderRadius.all(Radius.circular(4))
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                        child: Text(
-                          medidaProporcional,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onPrimary,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  CalculoWidget(passo, tabelaDeMedidas)
                 ],
               ),
             ),
@@ -223,4 +178,81 @@ class PassoWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class CalculoWidget extends StatelessWidget {
+  // Padding vertical do container que exibe o cálculo e a medida proporcional
+  // resultante. Garante o alinhamento em ambos os lados da equação.
+  static const paddingVertical = EdgeInsets.symmetric(vertical: 2);
+  final Passo passo;
+  final TabelaDeMedidas tabelaDeMedidas;
+
+  const CalculoWidget(this.passo, this.tabelaDeMedidas, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    String calculo = '';
+
+    // Exibe apenas os valores relevantes no cálculo:
+    // Medida de referência
+    if (passo.medida != null) {
+      // Nunca será null aqui, mas somos obrigados a colocar o valor padrão
+      calculo += passo.medida ?? '';
+    }
+    // Divisor
+    if (passo.divisor != 1) {
+      calculo += ' / ${passo.divisor}';
+    }
+    // Incremento
+    if (passo.incremento != 0) {
+      if (calculo.isNotEmpty) {
+        calculo += ' + ';
+      }
+      calculo += '${passo.incremento}cm';
+    }
+    
+    // Widgets que compõem o cálculo da medida proporcional
+    List<Widget> childrenCalculo = [];
+    // Booleanos auxiliares
+    bool temCalculo = calculo.isNotEmpty;
+    bool temResultado = calculo.isNotEmpty;
+    if (temCalculo) {
+      childrenCalculo.add(Text(
+        calculo,
+        style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)
+      ));
+    }
+    // Se há um cálculo relevante e o resultado é calculável, adiciona o '='
+    if (temCalculo && temResultado) {
+      childrenCalculo.add(Text('='));
+    }
+
+    return Wrap(
+      spacing: 4,
+      alignment: WrapAlignment.center,
+      children: [
+        Padding(
+          padding: paddingVertical,
+          child: Wrap(
+            spacing: 4,
+            children: childrenCalculo
+          )
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primary,
+            borderRadius: BorderRadius.all(Radius.circular(4))
+          ),
+          padding: paddingVertical + EdgeInsets.symmetric(horizontal: 8),
+          child: Text(
+            '${passo.medidaProporcional(tabelaDeMedidas)}cm',
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onPrimary,
+            ),
+          ),
+        ),
+      ]
+    );
+  } 
 }
