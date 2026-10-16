@@ -38,7 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
           .where(
             (Molde molde) =>
                 removeDiacritics(molde.modelo.toLowerCase())
-                    .contains(removeDiacritics(value.toLowerCase())),
+                    .contains(removeDiacritics(value.toLowerCase())) ||
+                removeDiacritics(molde.modelista.toLowerCase())
+                    .contains(removeDiacritics(value.toLowerCase()))
           )
           .toList();
     });
