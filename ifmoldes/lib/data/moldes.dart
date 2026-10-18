@@ -101,12 +101,21 @@ final List<Molde> moldesExemplo = [
       ),
     ],
   ),
-  Molde(
+Molde(
     modelo: 'Calça Jeans',
     modelista: "Ana Silva",
     referencia: "C2020",
     imagem: "exemplo.png",
-    tabelaPadrao: TabelaDeMedidas({}),
+    tabelaPadrao: TabelaDeMedidas({
+      MedidasPadrao.cintura: 78,
+      MedidasPadrao.quadril: 102,
+      MedidasPadrao.alturaDoGancho: 27,
+      MedidasPadrao.entrepernas: 76,
+      MedidasPadrao.circunferenciaDaCoxa: 58,
+      MedidasPadrao.circunferenciaDoJoelho: 40,
+      MedidasPadrao.circunferenciaDoTornozelo: 36,
+      MedidasPadrao.alturaDoJoelho: 52,
+    }),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -116,12 +125,20 @@ final List<Molde> moldesExemplo = [
       ),
     ],
   ),
-  Molde(
+Molde(
     modelo: 'Camiseta',
     modelista: "Bruno Souza",
     referencia: "C2020",
     imagem: "exemplo.png",
-    tabelaPadrao: TabelaDeMedidas({}),
+    tabelaPadrao: TabelaDeMedidas({
+      MedidasPadrao.busto: 96,
+      MedidasPadrao.comprimentoCorpoFrente: 68,
+      MedidasPadrao.comprimentoCorpoCostas: 70,
+      MedidasPadrao.ombro: 14,
+      MedidasPadrao.cavaFrente: 22,
+      MedidasPadrao.comprimentoDaManga: 20,
+      MedidasPadrao.circunferenciaDoBraco: 32,
+    }),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -131,12 +148,21 @@ final List<Molde> moldesExemplo = [
       ),
     ],
   ),
-  Molde(
+Molde(
     modelo: 'Vestido',
     modelista: "Carla Santos",
     referencia: "V2020",
-    tabelaPadrao: TabelaDeMedidas({}),
     imagem: "exemplo.png",
+    tabelaPadrao: TabelaDeMedidas({
+      MedidasPadrao.busto: 92,
+      MedidasPadrao.cintura: 74,
+      MedidasPadrao.quadril: 100,
+      MedidasPadrao.alturaDoBusto: 26,
+      MedidasPadrao.separacaoDoBusto: 19,
+      MedidasPadrao.alturaDoQuadril: 20,
+      MedidasPadrao.comprimentoCorpoFrente: 44,
+      MedidasPadrao.ombro: 12,
+    }),
     partes: [
       Parte(
         nome: "Exemplo",
@@ -146,12 +172,18 @@ final List<Molde> moldesExemplo = [
       ),
     ],
   ),
-  Molde(
+Molde(
     modelo: 'Short',
     modelista: "Daniel Araújo",
     referencia: "S2020",
     imagem: "exemplo.png",
-    tabelaPadrao: TabelaDeMedidas({}),
+    tabelaPadrao: TabelaDeMedidas({
+      MedidasPadrao.cintura: 76,
+      MedidasPadrao.quadril: 98,
+      MedidasPadrao.alturaDoGancho: 26,
+      MedidasPadrao.alturaDoQuadril: 19,
+      MedidasPadrao.circunferenciaDaCoxa: 56,
+    }),
     partes: [
       Parte(
         nome: "Exemplo",
