@@ -95,7 +95,6 @@ class _FormMedidasState extends State<FormMedidas> {
                 (par) => _buildInputField(label: par.key, value: par.value, controller: controllers[par.key]!),
               ).toList(),
             ),
-            // TODO: Adicionar pesquisa de medidas salvas de acordo com protótipo no Figma.
           ],
         ),
       ),
