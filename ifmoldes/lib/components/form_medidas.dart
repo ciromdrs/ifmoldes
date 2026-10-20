@@ -50,15 +50,20 @@ class _FormMedidasState extends State<FormMedidas> {
             ),
             SearchAnchor(
               builder: (BuildContext context, SearchController controller) {
-                return SearchBar(
-                  controller: controller,
-                  hintText: 'Pesquisar medidas salvas',
-                  onTap: () {
-                    controller.openView();
-                  },
-                  onChanged: (String value) {
-                    controller.openView();
-                  },
+                return Padding(
+                  padding: EdgeInsets.only(top: 8.0, bottom: 12.0),
+                  child: SearchBar(
+                    backgroundColor: WidgetStatePropertyAll<Color>(theme.colorScheme.surfaceContainerLow),
+                    controller: controller,
+                    leading: Icon(Icons.search),
+                    hintText: 'Pesquisar medidas salvas',
+                    onTap: () {
+                      controller.openView();
+                    },
+                    onChanged: (String value) {
+                      controller.openView();
+                    },
+                  )
                 );
               },
               suggestionsBuilder: (BuildContext context, SearchController controller) {
