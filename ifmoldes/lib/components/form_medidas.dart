@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:diacritic/diacritic.dart';
 
 import 'package:ifmoldes/medidas.dart';
+import 'package:ifmoldes/data/medidas.dart';
+import 'package:ifmoldes/models.dart';
 
 class FormMedidas extends StatefulWidget {
   final TabelaDeMedidas tabelaPadrao;
@@ -44,6 +47,32 @@ class _FormMedidasState extends State<FormMedidas> {
                 Icon(Icons.design_services_outlined),
                 Text('Medidas', style: theme.textTheme.titleMedium),
               ],
+            ),
+            SearchAnchor(
+              builder: (BuildContext context, SearchController controller) {
+                return SearchBar(
+                  controller: controller,
+                  hintText: 'Pesquisar medidas salvas',
+                  onTap: () {
+                    controller.openView();
+                  },
+                  onChanged: (String value) {
+                    controller.openView();
+                  },
+                );
+              },
+              suggestionsBuilder: (BuildContext context, SearchController controller) {
+                final List<TabelaDeMedidasModel> medidas = medidasExemplo.where(
+                  (TabelaDeMedidasModel tabela) => removeDiacritics(tabela.nome.toLowerCase())
+                    .contains(removeDiacritics(controller.text.toLowerCase()))
+                ).toList();
+                final List<ListTile> listTiles = medidas.map((medida) {
+                  return ListTile(
+                    title: Text(medida.nome)
+                  );
+                }).toList();
+                return listTiles;
+              },
             ),
             Column(
               spacing: 8,
