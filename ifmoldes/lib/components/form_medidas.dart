@@ -61,16 +61,8 @@ class _FormMedidasState extends State<FormMedidas> {
                       controller.openView();
                     },
                     onChanged: (String value) {
-                      controller.openView();
-                      for (final tabelaModel in medidasExemplo) {
-                        if (tabelaModel.nome == value) {
-                          for (final medida in MedidasPadrao.toList()) {
-                            if (controllers.containsKey(medida) || tabelaModel.tabela.containsKey(medida)) {
-                              controllers[medida]!.text = tabelaModel.tabela[medida].toString();
-                            }
-                          }
-                        }
-                      }
+                      
+                      // controllers['Quadril']!.text = '69';
                     },
                   )
                 );
@@ -82,7 +74,18 @@ class _FormMedidasState extends State<FormMedidas> {
                 ).toList();
                 final List<ListTile> listTiles = medidas.map((medida) {
                   return ListTile(
-                    title: Text(medida.nome)
+                    title: Text(medida.nome),
+                    onTap: () {
+                      for (final tabelaModel in medidasExemplo) {
+                        if (tabelaModel.nome == medida.nome) {
+                          for (final medida in MedidasPadrao.toList()) {
+                            if (tabelaModel.tabela.containsKey(medida)) {
+                              controllers[medida]!.text = tabelaModel.tabela[medida].toString();
+                            }
+                          }
+                        }
+                      }
+                    },
                   );
                 }).toList();
                 return listTiles;
