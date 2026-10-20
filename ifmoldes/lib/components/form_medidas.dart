@@ -62,6 +62,15 @@ class _FormMedidasState extends State<FormMedidas> {
                     },
                     onChanged: (String value) {
                       controller.openView();
+                      for (final tabelaModel in medidasExemplo) {
+                        if (tabelaModel.nome == value) {
+                          for (final medida in MedidasPadrao.toList()) {
+                            if (controllers.containsKey(medida) || tabelaModel.tabela.containsKey(medida)) {
+                              controllers[medida]!.text = tabelaModel.tabela[medida].toString();
+                            }
+                          }
+                        }
+                      }
                     },
                   )
                 );
