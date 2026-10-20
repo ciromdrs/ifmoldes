@@ -59,11 +59,7 @@ class _FormMedidasState extends State<FormMedidas> {
                     hintText: 'Pesquisar medidas salvas',
                     onTap: () {
                       controller.openView();
-                    },
-                    onChanged: (String value) {
-                      
-                      // controllers['Quadril']!.text = '69';
-                    },
+                    }
                   )
                 );
               },
@@ -76,6 +72,8 @@ class _FormMedidasState extends State<FormMedidas> {
                   return ListTile(
                     title: Text(medida.nome),
                     onTap: () {
+                      // controller.text = medida.nome;
+                      controller.closeView(medida.nome);
                       for (final tabelaModel in medidasExemplo) {
                         if (tabelaModel.nome == medida.nome) {
                           for (final medida in MedidasPadrao.toList()) {
