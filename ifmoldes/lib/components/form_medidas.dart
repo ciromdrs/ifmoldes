@@ -53,47 +53,65 @@ class _FormMedidasState extends State<FormMedidas> {
                 return Padding(
                   padding: EdgeInsets.only(top: 8.0, bottom: 12.0),
                   child: SearchBar(
-                    backgroundColor: WidgetStatePropertyAll<Color>(theme.colorScheme.surfaceContainerLow),
+                    backgroundColor: WidgetStatePropertyAll<Color>(
+                      theme.colorScheme.surfaceContainerLow,
+                    ),
                     controller: controller,
                     leading: Icon(Icons.search),
                     hintText: 'Pesquisar medidas salvas',
                     onTap: () {
                       controller.openView();
-                    }
-                  )
+                    },
+                  ),
                 );
               },
-              suggestionsBuilder: (BuildContext context, SearchController controller) {
-                final List<TabelaDeMedidasModel> medidas = medidasExemplo.where(
-                  (TabelaDeMedidasModel tabela) => removeDiacritics(tabela.nome.toLowerCase())
-                    .contains(removeDiacritics(controller.text.toLowerCase()))
-                ).toList();
-                final List<ListTile> listTiles = medidas.map((medida) {
-                  return ListTile(
-                    title: Text(medida.nome),
-                    onTap: () {
-                      // controller.text = medida.nome;
-                      controller.closeView(medida.nome);
-                      for (final tabelaModel in medidasExemplo) {
-                        if (tabelaModel.nome == medida.nome) {
-                          for (final medida in MedidasPadrao.toList()) {
-                            if (tabelaModel.tabela.containsKey(medida)) {
-                              controllers[medida]!.text = tabelaModel.tabela[medida].toString();
+              suggestionsBuilder:
+                  (BuildContext context, SearchController controller) {
+                    final List<TabelaDeMedidasModel> medidas = medidasExemplo
+                        .where(
+                          (TabelaDeMedidasModel tabela) =>
+                              removeDiacritics(
+                                tabela.nome.toLowerCase(),
+                              ).contains(
+                                removeDiacritics(controller.text.toLowerCase()),
+                              ),
+                        )
+                        .toList();
+                    final List<ListTile> listTiles = medidas.map((medida) {
+                      return ListTile(
+                        title: Text(medida.nome),
+                        onTap: () {
+                          // controller.text = medida.nome;
+                          controller.closeView(medida.nome);
+                          for (final tabelaModel in medidasExemplo) {
+                            if (tabelaModel.nome == medida.nome) {
+                              for (final medida in MedidasPadrao.toList()) {
+                                if (tabelaModel.tabela.containsKey(medida)) {
+                                  controllers[medida]!.text = tabelaModel
+                                      .tabela[medida]
+                                      .toString();
+                                }
+                              }
                             }
                           }
-                        }
-                      }
-                    },
-                  );
-                }).toList();
-                return listTiles;
-              },
+                        },
+                      );
+                    }).toList();
+                    return listTiles;
+                  },
             ),
             Column(
               spacing: 8,
-              children: tabela.toList().map(
-                (par) => _buildInputField(label: par.key, value: par.value, controller: controllers[par.key]!),
-              ).toList(),
+              children: tabela
+                  .toList()
+                  .map(
+                    (par) => _buildInputField(
+                      label: par.key,
+                      value: par.value,
+                      controller: controllers[par.key]!,
+                    ),
+                  )
+                  .toList(),
             ),
           ],
         ),
