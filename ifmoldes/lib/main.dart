@@ -15,20 +15,11 @@ class IFMoldesApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF00CC4D)
-        ),
-
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF00CC4D)),
         textTheme: const TextTheme(
-          labelLarge: TextStyle(
-            fontWeight: FontWeight.w700,
-          ),
-          labelMedium: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-          labelSmall: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
+          labelLarge: TextStyle(fontWeight: FontWeight.w700),
+          labelMedium: TextStyle(fontWeight: FontWeight.w500),
+          labelSmall: TextStyle(fontWeight: FontWeight.w500),
         ),
       ),
       home: const HomeScreen(),
