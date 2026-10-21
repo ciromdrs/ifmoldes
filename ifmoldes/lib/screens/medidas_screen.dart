@@ -29,7 +29,7 @@ class MedidasScreenState extends State<MedidasScreen> {
   @override
   initState() {
     super.initState();
-    medidasBase = medidasExemplo;
+    medidasBase = tabelaModelsExemplo;
     filteredMedidas = List.from(medidasBase);
     medidaModels = widget.medidaModels;
   }

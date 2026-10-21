@@ -1,7 +1,7 @@
 import 'package:ifmoldes/models.dart';
 import 'package:ifmoldes/medidas.dart';
 
-final List<TabelaDeMedidasModel> medidasExemplo = [
+final List<TabelaDeMedidasModel> tabelaModelsExemplo = [
   TabelaDeMedidasModel(
     nome: 'Ana',
     tabela: TabelaDeMedidas({
