@@ -23,6 +23,8 @@ class Molde {
   /// Tabela com medidas padrão para este molde.
   TabelaDeMedidas tabelaPadrao;
 
+  // TODO: Adicionar data de criação e última modificação
+
   /// Cria uma instância de [Molde].
   Molde({
     required this.modelo,
