@@ -33,6 +33,12 @@ class _FormMedidasState extends State<FormMedidas> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     tabela.copy(widget.tabelaPadrao);
+    final tabelaPadraoModel = TabelaDeMedidasModel(
+      nome: 'Medidas padrão',
+      dataCriacao: DateTime(0),
+      ultimaModificacao: DateTime(0),
+      tabela: widget.tabelaPadrao,
+    );
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -41,57 +47,57 @@ class _FormMedidasState extends State<FormMedidas> {
         child: Column(
           spacing: 8,
           children: [
-            Row(
-              spacing: 10,
-              children: [
-                Icon(Icons.design_services_outlined),
-                Text('Medidas', style: theme.textTheme.titleMedium),
-              ],
-            ),
             SearchAnchor(
               builder: (BuildContext context, SearchController controller) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 8.0, bottom: 12.0),
-                  child: SearchBar(
-                    backgroundColor: WidgetStatePropertyAll<Color>(
-                      theme.colorScheme.surfaceContainerLow,
-                    ),
-                    controller: controller,
-                    leading: Icon(Icons.search),
-                    hintText: 'Pesquisar medidas salvas',
-                    onTap: () {
-                      controller.openView();
-                    },
+                return SearchBar(
+                  padding: WidgetStatePropertyAll(
+                    EdgeInsets.symmetric(horizontal: 16),
                   ),
+                  shadowColor: WidgetStatePropertyAll<Color>(
+                    Colors.transparent,
+                  ),
+                  backgroundColor: WidgetStateProperty.resolveWith((states) {
+                    return Colors.transparent;
+                  }),
+                  controller: controller,
+                  leading: Icon(Icons.design_services_outlined),
+                  trailing: [Icon(Icons.search_outlined)],
+                  hintText: tabelaPadraoModel.nome,
+                  hintStyle: WidgetStateProperty.resolveWith((states) {
+                    return theme.textTheme.bodyLarge;
+                  }),
+                  onTap: () {
+                    controller.openView();
+                  },
                 );
               },
               suggestionsBuilder:
                   (BuildContext context, SearchController controller) {
-                    final List<TabelaDeMedidasModel> medidas = medidasExemplo
-                        .where(
-                          (TabelaDeMedidasModel tabela) =>
-                              removeDiacritics(
-                                tabela.nome.toLowerCase(),
-                              ).contains(
-                                removeDiacritics(controller.text.toLowerCase()),
-                              ),
-                        )
-                        .toList();
-                    final List<ListTile> listTiles = medidas.map((medida) {
+                    final List<TabelaDeMedidasModel> tabelaModels =
+                        [tabelaPadraoModel] +
+                        tabelaModelsExemplo
+                            .where(
+                              (TabelaDeMedidasModel tabela) =>
+                                  removeDiacritics(tabela.nome.toLowerCase())
+                                      .contains(
+                                        removeDiacritics(
+                                          controller.text.toLowerCase(),
+                                        ),
+                                      ),
+                            )
+                            .toList();
+                    final List<ListTile> listTiles = tabelaModels.map((
+                      selecionada,
+                    ) {
                       return ListTile(
-                        title: Text(medida.nome),
+                        title: Text(selecionada.nome),
                         onTap: () {
-                          // controller.text = medida.nome;
-                          controller.closeView(medida.nome);
-                          for (final tabelaModel in medidasExemplo) {
-                            if (tabelaModel.nome == medida.nome) {
-                              for (final medida in MedidasPadrao.toList()) {
-                                if (tabelaModel.tabela.containsKey(medida)) {
-                                  controllers[medida]!.text = tabelaModel
-                                      .tabela[medida]
-                                      .toString();
-                                }
-                              }
+                          controller.closeView(selecionada.nome);
+                          for (final entry in controllers.entries) {
+                            if (selecionada.tabela.containsKey(entry.key)) {
+                              controllers[entry.key]!.text = selecionada
+                                  .tabela[entry.key]!
+                                  .toString();
                             }
                           }
                         },

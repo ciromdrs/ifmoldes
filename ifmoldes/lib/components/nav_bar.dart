@@ -50,7 +50,7 @@ class _NavbarState extends State<Navbar> {
           onDestinationSelected: (int index) {
             setState(() {
               _selectedIndex = index;
-              final Widget screen = [HomeScreen(), MedidasScreen(medidaModels: medidasExemplo,)][index];
+              final Widget screen = [HomeScreen(), MedidasScreen(medidaModels: tabelaModelsExemplo,)][index];
               Navigator.push(
                 context,
                 MaterialPageRoute(
