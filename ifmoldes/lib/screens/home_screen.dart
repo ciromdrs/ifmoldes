@@ -4,11 +4,14 @@ import 'package:diacritic/diacritic.dart';
 import 'package:ifmoldes/components/drawer.dart';
 import 'package:ifmoldes/components/main_header.dart';
 import 'package:ifmoldes/components/pattern_card.dart';
+import 'package:ifmoldes/components/fab_flutuante.dart';
 import 'package:ifmoldes/data/medidas.dart';
 import 'package:ifmoldes/data/moldes.dart';
 import 'package:ifmoldes/molde.dart';
 import 'package:ifmoldes/screens/medidas_screen.dart';
+import 'package:ifmoldes/screens/medida_screen.dart';
 import 'package:ifmoldes/screens/pattern_screen.dart';
+import 'package:ifmoldes/models.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int navbarIndex = 0;
   late List<Molde> moldes;
   late List<Molde> moldesBase;
+  late List<TabelaDeMedidasModel> medidas;
+  late List<TabelaDeMedidasModel> medidasBase;
   late PreferredSizeWidget appBar;
   late Widget body;
   late StatelessWidget? fab;
@@ -34,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     searchController = searchController;
     // TODO: Adicionar moldes carregados do banco
     moldesBase = moldesExemplo;
+    medidasBase = tabelaModelsExemplo;
     // Só variáveis locais podem ser usadas em pattern assignments no Dart,
     // então precisamos usar as auxiliares abaixo
     // Por padrão, começa na tela de moldes
@@ -57,6 +63,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 removeDiacritics(molde.modelo.toLowerCase())
                     .contains(removeDiacritics(value.toLowerCase())) ||
                 removeDiacritics(molde.modelista.toLowerCase())
+                    .contains(removeDiacritics(value.toLowerCase())),
+          )
+          .toList();
+    });
+  }
+
+  void filterMedidas(String value) {
+    setState(() {
+      medidas = medidasBase
+          .where(
+            (TabelaDeMedidasModel medidas) =>
+                removeDiacritics(medidas.nome.toLowerCase())
                     .contains(removeDiacritics(value.toLowerCase())),
           )
           .toList();
@@ -173,6 +191,143 @@ class _HomeScreenState extends State<HomeScreen> {
           label: 'Medidas',
         ),
       ],
+    );
+  }
+  
+  (PreferredSizeWidget, Widget, StatelessWidget?) conteudoTelaMedidas(
+    BuildContext context,
+    ValueChanged<String> searchBarOnChanged,
+    GlobalKey<ScaffoldState> scaffoldKey,
+    List<TabelaDeMedidasModel> medidas
+  ) {
+    return (
+      HomeHeader(
+        scaffoldKey: _scaffoldKey,
+        searchController: searchController,
+        searchBarOnChanged: filterMedidas,
+        searchPlaceholder: 'Buscar medidas',
+        medidaModels: medidas,
+        onFilter: (value) {
+          setState(() {
+            medidas = value;
+          });
+        }
+      ),
+      listaMedidas(context, medidas),
+      FABFlutuante(
+        texto: 'Registrar medida',
+        iconData: Icons.add,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MedidaScreen(medidaModels: medidas,)
+            )
+          );
+        }
+      ),
+    );
+  }
+
+  Widget listaMedidas(
+    BuildContext context,
+    List<TabelaDeMedidasModel> filteredMedidas
+  ) {
+    final ThemeData theme = Theme.of(context);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: medidas.length,
+            itemBuilder: (context, index) {
+              final TabelaDeMedidasModel medidas = filteredMedidas[index];
+              const List<String> meses = [
+                'janeiro',
+                'fevereiro',
+                'março',
+                'abril',
+                'maio',
+                'junho',
+                'julho',
+                'agosto',
+                'setembro',
+                'outubro',
+                'novembro',
+                'dezembro',
+              ];
+              String hora = medidas.ultimaModificacao.hour.toString();
+              if (hora.length == 1) {
+                hora = '0$hora';
+              }
+              String minuto = medidas.ultimaModificacao.minute.toString();
+              if (minuto.length == 1) {
+                minuto = '0$minuto';
+              }
+              String segundo = medidas.ultimaModificacao.second.toString();
+              if (segundo.length == 1) {
+                segundo = '0$segundo';
+              }
+              final String textoUltimaModificacao = '''${medidas.ultimaModificacao.day} de ${meses[medidas.ultimaModificacao.month - 1]} de ${medidas.ultimaModificacao.year} às $hora:$minuto:$segundo''';
+
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MedidaScreen(medidaModels: medidasBase, editModel: medidas,),
+                    )
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: 28.0, right: 28.0),
+                  decoration: BoxDecoration(
+                    border: BoxBorder.fromLTRB(bottom: BorderSide(color: theme.colorScheme.outlineVariant))
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 11.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          spacing: 8.0,
+                          children: [
+                            Icon(Icons.design_services_outlined, size: 22, color: theme.colorScheme.onSurfaceVariant,),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: .6,
+                              children: [
+                                Text(
+                                  medidas.nome,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: theme.colorScheme.onSurface
+                                  )
+                                ),
+                                Text(
+                                  textoUltimaModificacao,
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: theme.colorScheme.onSurfaceVariant
+                                  )
+                                ),
+                              ]
+                            )
+                          ],
+                        ),
+                        Icon(Icons.file_upload_outlined, color: theme.colorScheme.onSurfaceVariant)
+                      ]
+                    ),
+                  )
+                )
+              );
+            }
+          )
+        )
+      ]
     );
   }
 }
