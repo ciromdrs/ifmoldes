@@ -36,20 +36,17 @@ class _HomeScreenState extends State<HomeScreen> {
     moldesBase = moldesExemplo;
     // Só variáveis locais podem ser usadas em pattern assignments no Dart,
     // então precisamos usar as auxiliares abaixo
-    late PreferredSizeWidget _appBar;
-    late Widget _body;
-    late StatelessWidget? _fab;
     // Por padrão, começa na tela de moldes
-    (_appBar, _body, _fab) = conteudoTelaMoldes(
+    final (appBar_, body_, fab_) = conteudoTelaMoldes(
       searchBarOnChanged: filterMoldes,
       scaffoldKey: _scaffoldKey,
       searchController: searchController,
       moldes: List.from(moldesBase),
     );
     // Repassa o valor das auxiliares para as propriedades da classe
-    appBar = _appBar;
-    body = _body;
-    fab = _fab;
+    appBar = appBar_;
+    body = body_;
+    fab = fab_;
   }
 
   void filterMoldes(String value) {
