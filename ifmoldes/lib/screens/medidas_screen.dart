@@ -34,147 +34,16 @@ class MedidasScreenState extends State<MedidasScreen> {
     medidaModels = widget.medidaModels;
   }
 
-  void filterMedidas(String value) {
-    setState(() {
-      filteredMedidas = medidasBase
-          .where(
-            (TabelaDeMedidasModel medidas) =>
-                removeDiacritics(medidas.nome.toLowerCase())
-                    .contains(removeDiacritics(value.toLowerCase())),
-          )
-          .toList();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: HomeHeader(
-        scaffoldKey: _scaffoldKey,
-        searchController: searchController,
-        searchBarOnChanged: filterMedidas,
-        searchPlaceholder: 'Buscar medidas',
-        medidaModels: filteredMedidas,
-        onFilter: (value) {
-          setState(() {
-            filteredMedidas = value;
-          });
-        }
-      ),
 
       drawer: MainDrawer(),
 
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredMedidas.length,
-              itemBuilder: (context, index) {
-                final TabelaDeMedidasModel medidas = filteredMedidas[index];
-                const List<String> meses = [
-                  'janeiro',
-                  'fevereiro',
-                  'março',
-                  'abril',
-                  'maio',
-                  'junho',
-                  'julho',
-                  'agosto',
-                  'setembro',
-                  'outubro',
-                  'novembro',
-                  'dezembro',
-                ];
-                String hora = medidas.ultimaModificacao.hour.toString();
-                if (hora.length == 1) {
-                  hora = '0$hora';
-                }
-                String minuto = medidas.ultimaModificacao.minute.toString();
-                if (minuto.length == 1) {
-                  minuto = '0$minuto';
-                }
-                String segundo = medidas.ultimaModificacao.second.toString();
-                if (segundo.length == 1) {
-                  segundo = '0$segundo';
-                }
-                final String textoUltimaModificacao = '''${medidas.ultimaModificacao.day} de ${meses[medidas.ultimaModificacao.month - 1]} de ${medidas.ultimaModificacao.year} às $hora:$minuto:$segundo''';
-
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MedidaScreen(medidaModels: medidaModels, editModel: medidas,),
-                      )
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(left: 28.0, right: 28.0),
-                    decoration: BoxDecoration(
-                      border: BoxBorder.fromLTRB(bottom: BorderSide(color: theme.colorScheme.outlineVariant))
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 11.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            spacing: 8.0,
-                            children: [
-                              Icon(Icons.design_services_outlined, size: 22, color: theme.colorScheme.onSurfaceVariant,),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                spacing: .6,
-                                children: [
-                                  Text(
-                                    medidas.nome,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: theme.colorScheme.onSurface
-                                    )
-                                  ),
-                                  Text(
-                                    textoUltimaModificacao,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: theme.colorScheme.onSurfaceVariant
-                                    )
-                                  ),
-                                ]
-                              )
-                            ],
-                          ),
-                          Icon(Icons.file_upload_outlined, color: theme.colorScheme.onSurfaceVariant)
-                        ]
-                      ),
-                    )
-                  )
-                );
-              }
-            )
-          )
-        ]
-      ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FABFlutuante(
-        texto: 'Registrar medida',
-        iconData: Icons.add,
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MedidaScreen(medidaModels: medidaModels,)
-            )
-          );
-        }
-      ),
       
       bottomNavigationBar: Navbar(selectedIndex: 1,),
     );
