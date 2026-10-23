@@ -27,8 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int navbarIndex = 0;
   late List<Molde> moldes;
   late List<Molde> moldesBase;
-  late List<TabelaDeMedidasModel> medidas;
   late List<TabelaDeMedidasModel> medidasBase;
+  late List<TabelaDeMedidasModel> medidas;
   late PreferredSizeWidget appBar;
   late Widget body;
   late StatelessWidget? fab;
@@ -109,14 +109,44 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedIndex: navbarIndex,
         onDestinationSelected: (int index) {
           navbarIndex = index;
+          final PreferredSizeWidget appBar_;
+          final Widget body_;
+          final StatelessWidget? fab_;
+
           final Widget screen = [
             HomeScreen(),
             MedidasScreen(medidaModels: tabelaModelsExemplo),
           ][index];
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => screen),
-          );
+          if (navbarIndex == 0) {
+            (appBar_, body_, fab_) = conteudoTelaMoldes(
+              searchBarOnChanged: filterMoldes,
+              scaffoldKey: _scaffoldKey,
+              searchController: searchController,
+              moldes: List.from(moldesBase),
+            );
+            setState(() {
+              appBar = appBar_;
+              body = body_;
+              fab = fab_;
+            });
+          }
+          else if (navbarIndex == 1) {
+            (appBar_, body_, fab_) = conteudoTelaMedidas(
+              context: context,
+              searchBarOnChanged: filterMedidas,
+              scaffoldKey: _scaffoldKey,
+              medidas_: List.from(medidasBase)
+            );
+            setState(() {
+              appBar = appBar_;
+              body = body_;
+              fab = fab_;
+            });
+          }
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => screen),
+          // );
         },
       ),
       floatingActionButton: fab,
@@ -194,12 +224,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   
-  (PreferredSizeWidget, Widget, StatelessWidget?) conteudoTelaMedidas(
-    BuildContext context,
-    ValueChanged<String> searchBarOnChanged,
-    GlobalKey<ScaffoldState> scaffoldKey,
-    List<TabelaDeMedidasModel> medidas
-  ) {
+  (PreferredSizeWidget, Widget, StatelessWidget?) conteudoTelaMedidas({
+    required BuildContext context,
+    required ValueChanged<String> searchBarOnChanged,
+    required GlobalKey<ScaffoldState> scaffoldKey,
+    required List<TabelaDeMedidasModel> medidas_
+  }) {
+    medidas = medidas_;
     return (
       HomeHeader(
         scaffoldKey: _scaffoldKey,
