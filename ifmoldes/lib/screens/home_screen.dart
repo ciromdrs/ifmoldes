@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:ifmoldes/components/drawer.dart';
-import 'package:ifmoldes/components/fab_flutuante.dart';
 import 'package:ifmoldes/components/pattern_card.dart';
 import 'package:ifmoldes/data/medidas.dart';
 import 'package:ifmoldes/data/moldes.dart';
@@ -74,9 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return (
       appBar: appBarIFMoldes(context),
       body: ListaDeTabelasDeMedidas(),
-      fab: FABFlutuante(
-        texto: 'Registrar medida',
-        iconData: Icons.add,
+      fab: FloatingActionButton(
+        tooltip: 'Registrar medida',
+        child: Icon(Icons.add),
         onPressed: () {
           Navigator.push(
             context,
