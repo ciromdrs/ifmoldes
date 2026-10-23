@@ -105,7 +105,7 @@ Molde(
     modelo: 'Calça Jeans',
     modelista: "Ana Silva",
     referencia: "C2020",
-    imagem: "exemplo.png",
+    imagem: "assets/exemplo.png",
     tabelaPadrao: TabelaDeMedidas({
       MedidasPadrao.cintura: 78,
       MedidasPadrao.quadril: 102,
@@ -120,7 +120,7 @@ Molde(
       Parte(
         nome: "Exemplo",
         quantidade: 1,
-        imagem: "exemplo.png",
+        imagem: "assets/exemplo.png",
         passos: [],
       ),
     ],
@@ -129,7 +129,7 @@ Molde(
     modelo: 'Camiseta',
     modelista: "Bruno Souza",
     referencia: "C2020",
-    imagem: "exemplo.png",
+    imagem: "assets/exemplo.png",
     tabelaPadrao: TabelaDeMedidas({
       MedidasPadrao.busto: 96,
       MedidasPadrao.comprimentoCorpoFrente: 68,
@@ -143,7 +143,7 @@ Molde(
       Parte(
         nome: "Exemplo",
         quantidade: 1,
-        imagem: "exemplo.png",
+        imagem: "assets/exemplo.png",
         passos: [],
       ),
     ],
@@ -152,7 +152,7 @@ Molde(
     modelo: 'Vestido',
     modelista: "Carla Santos",
     referencia: "V2020",
-    imagem: "exemplo.png",
+    imagem: "assets/exemplo.png",
     tabelaPadrao: TabelaDeMedidas({
       MedidasPadrao.busto: 92,
       MedidasPadrao.cintura: 74,
@@ -167,7 +167,7 @@ Molde(
       Parte(
         nome: "Exemplo",
         quantidade: 1,
-        imagem: "exemplo.png",
+        imagem: "assets/exemplo.png",
         passos: []
       ),
     ],
@@ -176,7 +176,7 @@ Molde(
     modelo: 'Short',
     modelista: "Daniel Araújo",
     referencia: "S2020",
-    imagem: "exemplo.png",
+    imagem: "assets/exemplo.png",
     tabelaPadrao: TabelaDeMedidas({
       MedidasPadrao.cintura: 76,
       MedidasPadrao.quadril: 98,
@@ -188,7 +188,7 @@ Molde(
       Parte(
         nome: "Exemplo",
         quantidade: 1,
-        imagem: "exemplo.png",
+        imagem: "assets/exemplo.png",
         passos: []
       ),
     ],
