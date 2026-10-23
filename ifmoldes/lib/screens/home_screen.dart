@@ -113,40 +113,27 @@ class _HomeScreenState extends State<HomeScreen> {
           final Widget body_;
           final StatelessWidget? fab_;
 
-          final Widget screen = [
-            HomeScreen(),
-            MedidasScreen(medidaModels: tabelaModelsExemplo),
-          ][index];
-          if (navbarIndex == 0) {
-            (appBar_, body_, fab_) = conteudoTelaMoldes(
+          List<(PreferredSizeWidget, Widget, StatelessWidget?)> telaRecords = [
+            conteudoTelaMoldes(
               searchBarOnChanged: filterMoldes,
               scaffoldKey: _scaffoldKey,
               searchController: searchController,
               moldes: List.from(moldesBase),
-            );
-            setState(() {
-              appBar = appBar_;
-              body = body_;
-              fab = fab_;
-            });
-          }
-          else if (navbarIndex == 1) {
-            (appBar_, body_, fab_) = conteudoTelaMedidas(
+            ),
+            conteudoTelaMedidas(
               context: context,
               searchBarOnChanged: filterMedidas,
               scaffoldKey: _scaffoldKey,
               medidas_: List.from(medidasBase)
-            );
-            setState(() {
-              appBar = appBar_;
-              body = body_;
-              fab = fab_;
-            });
-          }
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => screen),
-          // );
+            )
+          ];
+
+          (appBar_, body_, fab_) = telaRecords[index];
+          setState(() {
+            appBar = appBar_;
+            body = body_;
+            fab = fab_;
+          });
         },
       ),
       floatingActionButton: fab,
