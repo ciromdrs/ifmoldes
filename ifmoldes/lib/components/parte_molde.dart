@@ -254,7 +254,7 @@ class CalculoWidget extends StatelessWidget {
           ),
           padding: paddingVertical + EdgeInsets.symmetric(horizontal: 8),
           child: Text(
-            '${passo.medidaProporcional(tabelaDeMedidas)}cm',
+            '${passo.medidaProporcional(tabelaDeMedidas) ?? 0}cm',
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onPrimary,
             ),
