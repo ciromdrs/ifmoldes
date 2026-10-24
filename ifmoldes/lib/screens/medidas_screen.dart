@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:diacritic/diacritic.dart';
-
-import 'package:ifmoldes/components/main_header.dart';
 import 'package:ifmoldes/components/drawer.dart';
 import 'package:ifmoldes/components/nav_bar.dart';
-import 'package:ifmoldes/components/fab_flutuante.dart';
 import 'package:ifmoldes/models.dart';
-import 'package:ifmoldes/screens/medida_screen.dart';
 
 import 'package:ifmoldes/data/medidas.dart';
 
@@ -36,8 +31,6 @@ class MedidasScreenState extends State<MedidasScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-
     return Scaffold(
       key: _scaffoldKey,
 

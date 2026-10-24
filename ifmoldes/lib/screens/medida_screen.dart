@@ -189,12 +189,7 @@ class _MedidaScreenState extends State<MedidaScreen> {
           } else {
             criarMedida();
           }
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MedidasScreen(medidaModels: medidaModels,)
-            )
-          );
+          Navigator.pop(context);
         }
       ),
     );

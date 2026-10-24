@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:ifmoldes/components/drawer.dart';
 import 'package:ifmoldes/components/pattern_card.dart';
-import 'package:ifmoldes/components/fab_flutuante.dart';
 import 'package:ifmoldes/data/medidas.dart';
 import 'package:ifmoldes/data/moldes.dart';
 import 'package:ifmoldes/models.dart';
 import 'package:ifmoldes/molde.dart';
 import 'package:ifmoldes/screens/medida_screen.dart';
 import 'package:ifmoldes/screens/pattern_screen.dart';
-import 'package:ifmoldes/models.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Controle de estado e navegação
   int navbarIndex = 0;
   late List<Molde> moldes;
+  late List<TabelaDeMedidasModel> medidas;
 
   @override
   Widget build(BuildContext context) {
@@ -284,16 +283,17 @@ class ListaDeTabelasDeMedidas extends StatelessWidget {
       ],
     );
   }
-  
+
   (PreferredSizeWidget, Widget, StatelessWidget?) conteudoTelaMedidas({
     required BuildContext context,
     required ValueChanged<String> searchBarOnChanged,
     required GlobalKey<ScaffoldState> scaffoldKey,
-    required List<TabelaDeMedidasModel> medidas_
+    required List<TabelaDeMedidasModel> medidas_,
   }) {
-    medidas = medidas_;
+    // medidas = medidas_;
     return (
-      HomeHeader(
+      appBarIFMoldes(context),
+      /*HomeHeader(
         scaffoldKey: _scaffoldKey,
         searchController: searchController,
         searchBarOnChanged: filterMedidas,
@@ -303,27 +303,27 @@ class ListaDeTabelasDeMedidas extends StatelessWidget {
           setState(() {
             medidas = value;
           });
-        }
-      ),
-      listaMedidas(context, medidas),
-      FABFlutuante(
-        texto: 'Registrar medida',
-        iconData: Icons.add,
+        },
+      ),*/
+      listaMedidas(context, [] /* medidas */),
+      FloatingActionButton(
+        tooltip: 'Registrar medida',
+        child: Icon(Icons.add),
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MedidaScreen(medidaModels: medidas,)
-            )
+              builder: (context) => MedidaScreen(medidaModels: []),
+            ),
           );
-        }
+        },
       ),
     );
   }
 
   Widget listaMedidas(
     BuildContext context,
-    List<TabelaDeMedidasModel> filteredMedidas
+    List<TabelaDeMedidasModel> filteredMedidas,
   ) {
     final ThemeData theme = Theme.of(context);
 
@@ -332,7 +332,7 @@ class ListaDeTabelasDeMedidas extends StatelessWidget {
       children: [
         Expanded(
           child: ListView.builder(
-            itemCount: medidas.length,
+            itemCount: 0 /*medidas.length*/,
             itemBuilder: (context, index) {
               final TabelaDeMedidasModel medidas = filteredMedidas[index];
               const List<String> meses = [
@@ -361,21 +361,29 @@ class ListaDeTabelasDeMedidas extends StatelessWidget {
               if (segundo.length == 1) {
                 segundo = '0$segundo';
               }
-              final String textoUltimaModificacao = '''${medidas.ultimaModificacao.day} de ${meses[medidas.ultimaModificacao.month - 1]} de ${medidas.ultimaModificacao.year} às $hora:$minuto:$segundo''';
+              final String textoUltimaModificacao =
+                  '''${medidas.ultimaModificacao.day} de ${meses[medidas.ultimaModificacao.month - 1]} de ${medidas.ultimaModificacao.year} às $hora:$minuto:$segundo''';
 
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MedidaScreen(medidaModels: medidasBase, editModel: medidas,),
-                    )
+                      builder: (context) => MedidaScreen(
+                        medidaModels: [] /*medidasBase*/,
+                        editModel: medidas,
+                      ),
+                    ),
                   );
                 },
                 child: Container(
                   margin: EdgeInsets.only(left: 28.0, right: 28.0),
                   decoration: BoxDecoration(
-                    border: BoxBorder.fromLTRB(bottom: BorderSide(color: theme.colorScheme.outlineVariant))
+                    border: BoxBorder.fromLTRB(
+                      bottom: BorderSide(
+                        color: theme.colorScheme.outlineVariant,
+                      ),
+                    ),
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 11.0),
@@ -386,7 +394,11 @@ class ListaDeTabelasDeMedidas extends StatelessWidget {
                         Row(
                           spacing: 8.0,
                           children: [
-                            Icon(Icons.design_services_outlined, size: 22, color: theme.colorScheme.onSurfaceVariant,),
+                            Icon(
+                              Icons.design_services_outlined,
+                              size: 22,
+                              color: theme.colorScheme.onSurfaceVariant,
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               spacing: .6,
@@ -396,61 +408,63 @@ class ListaDeTabelasDeMedidas extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
-                                    color: theme.colorScheme.onSurface
-                                  )
+                                    color: theme.colorScheme.onSurface,
+                                  ),
                                 ),
                                 Text(
                                   textoUltimaModificacao,
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: theme.colorScheme.onSurfaceVariant
-                                  )
+                                    color: theme.colorScheme.onSurfaceVariant,
+                                  ),
                                 ),
-                              ]
-                            )
+                              ],
+                            ),
                           ],
                         ),
-                        Icon(Icons.file_upload_outlined, color: theme.colorScheme.onSurfaceVariant)
-                      ]
+                        Icon(
+                          Icons.file_upload_outlined,
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ],
                     ),
-                  )
-                )
+                  ),
+                ),
               );
-            }
-          )
-        )
-      ]
+            },
+          ),
+        ),
+      ],
     );
   }
 }
 
-PreferredSizeWidget appBarIFMoldes(BuildContext context) {
-  return AppBar(
-    title: Row(
-      children: [
-        Baseline(
-          // Este baseline compensa a diferença de altura entre as fontes
-          baseline: 20,
-          baselineType: TextBaseline.alphabetic,
-          child: Text(
-            'IF',
-            style: TextStyle(
-              color: Color.fromARGB(255, 101, 101, 101),
-              fontWeight: FontWeight.w600,
-              fontFamily: 'Open Sans',
-            ),
-          ),
+const appTitleWidget = Row(
+  children: [
+    Baseline(
+      // Este baseline compensa a diferença de altura entre as fontes
+      baseline: 20,
+      baselineType: TextBaseline.alphabetic,
+      child: Text(
+        'IF',
+        style: TextStyle(
+          color: Color.fromARGB(255, 101, 101, 101),
+          fontWeight: FontWeight.w600,
+          fontFamily: 'Open Sans',
         ),
-        Text(
-          'Moldes',
-          style: TextStyle(
-            color: Color.fromARGB(255, 50, 160, 65),
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Outfit',
-          ),
-        ),
-      ],
+      ),
     ),
-    automaticallyImplyLeading: true,
-  );
+    Text(
+      'Moldes',
+      style: TextStyle(
+        color: Color.fromARGB(255, 50, 160, 65),
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Outfit',
+      ),
+    ),
+  ],
+);
+
+PreferredSizeWidget appBarIFMoldes(BuildContext context) {
+  return AppBar(title: appTitleWidget, automaticallyImplyLeading: true);
 }
