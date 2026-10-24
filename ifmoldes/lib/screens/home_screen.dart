@@ -37,22 +37,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       extendBody: true,
-
-      // DRAWER (Menu Lateral de Hambúrguer)
+      // Menu Lateral de Hambúrguer
       drawer: MainDrawer(),
-
-      // APP BAR (Barra Superior Fixa)
+      // Barra Superior
       appBar: conteudo.appBar,
-
-      // BODY (Corpo principal com rolagem ativada)
+      // Corpo principal com rolagem ativada
       body: conteudo.body,
-
-      // Botão de ação flutuante (FAB)
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: FABFlutuante(texto: 'Importar molde', iconData: Icons.add, callback: () {}),
-
-      // BOTTOM NAVIGATION BAR (Barra Inferior Fixa)
+      // Barra Inferior
       bottomNavigationBar: _navbar(context, selectedIndex: navbarIndex),
+      // Botão de ação flutuante (FAB)
       floatingActionButton: conteudo.fab,
     );
   }
@@ -73,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     return (
       appBar: appBarIFMoldes(context),
-      body: ListaDeTabelasDeMedidas(),
+      body: TabelaDeMedidasModelListView(tabelas: []),
       fab: FloatingActionButton(
         tooltip: 'Registrar medida',
         child: Icon(Icons.add),
@@ -169,274 +162,30 @@ class _GridMoldesState extends State<GridMoldes> {
   }
 }
 
-class ListaDeTabelasDeMedidas extends StatelessWidget {
-  const new({super.key});
+(PreferredSizeWidget, Widget, StatelessWidget?) conteudoTelaMedidas({
+  required BuildContext context,
+  required ValueChanged<String> searchBarOnChanged,
+  required GlobalKey<ScaffoldState> scaffoldKey,
+  required List<TabelaDeMedidasModel> medidas_,
+}) {
+  // medidas = medidas_;
+  return (
+    appBarIFMoldes(context),
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: tabelaModelsExemplo.length,
-            itemBuilder: (context, index) {
-              final theme = Theme.of(context);
-              final TabelaDeMedidasModel medidas = tabelaModelsExemplo[index];
-              const List<String> meses = [
-                'janeiro',
-                'fevereiro',
-                'março',
-                'abril',
-                'maio',
-                'junho',
-                'julho',
-                'agosto',
-                'setembro',
-                'outubro',
-                'novembro',
-                'dezembro',
-              ];
-              String hora = medidas.ultimaModificacao.hour.toString();
-              if (hora.length == 1) {
-                hora = '0$hora';
-              }
-              String minuto = medidas.ultimaModificacao.minute.toString();
-              if (minuto.length == 1) {
-                minuto = '0$minuto';
-              }
-              String segundo = medidas.ultimaModificacao.second.toString();
-              if (segundo.length == 1) {
-                segundo = '0$segundo';
-              }
-              final String textoUltimaModificacao =
-                  '''${medidas.ultimaModificacao.day} de ${meses[medidas.ultimaModificacao.month - 1]} de ${medidas.ultimaModificacao.year} às $hora:$minuto:$segundo''';
-
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          MedidaScreen(medidaModels: [], editModel: medidas),
-                    ),
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.only(left: 28.0, right: 28.0),
-                  decoration: BoxDecoration(
-                    border: BoxBorder.fromLTRB(
-                      bottom: BorderSide(
-                        color: theme.colorScheme.outlineVariant,
-                      ),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 11.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          spacing: 8.0,
-                          children: [
-                            Icon(
-                              Icons.design_services_outlined,
-                              size: 22,
-                              color: theme.colorScheme.onSurfaceVariant,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: .6,
-                              children: [
-                                Text(
-                                  medidas.nome,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: theme.colorScheme.onSurface,
-                                  ),
-                                ),
-                                Text(
-                                  textoUltimaModificacao,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: theme.colorScheme.onSurfaceVariant,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Icon(
-                          Icons.file_upload_outlined,
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
+    TabelaDeMedidasModelListView(tabelas: [] /* medidas */),
+    FloatingActionButton(
+      tooltip: 'Registrar medida',
+      child: Icon(Icons.add),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MedidaScreen(medidaModels: []),
           ),
-        ),
-      ],
-    );
-  }
-
-  (PreferredSizeWidget, Widget, StatelessWidget?) conteudoTelaMedidas({
-    required BuildContext context,
-    required ValueChanged<String> searchBarOnChanged,
-    required GlobalKey<ScaffoldState> scaffoldKey,
-    required List<TabelaDeMedidasModel> medidas_,
-  }) {
-    // medidas = medidas_;
-    return (
-      appBarIFMoldes(context),
-      /*HomeHeader(
-        scaffoldKey: _scaffoldKey,
-        searchController: searchController,
-        searchBarOnChanged: filterMedidas,
-        searchPlaceholder: 'Buscar medidas',
-        medidaModels: medidas,
-        onFilter: (value) {
-          setState(() {
-            medidas = value;
-          });
-        },
-      ),*/
-      listaMedidas(context, [] /* medidas */),
-      FloatingActionButton(
-        tooltip: 'Registrar medida',
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MedidaScreen(medidaModels: []),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget listaMedidas(
-    BuildContext context,
-    List<TabelaDeMedidasModel> filteredMedidas,
-  ) {
-    final ThemeData theme = Theme.of(context);
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: ListView.builder(
-            itemCount: 0 /*medidas.length*/,
-            itemBuilder: (context, index) {
-              final TabelaDeMedidasModel medidas = filteredMedidas[index];
-              const List<String> meses = [
-                'janeiro',
-                'fevereiro',
-                'março',
-                'abril',
-                'maio',
-                'junho',
-                'julho',
-                'agosto',
-                'setembro',
-                'outubro',
-                'novembro',
-                'dezembro',
-              ];
-              String hora = medidas.ultimaModificacao.hour.toString();
-              if (hora.length == 1) {
-                hora = '0$hora';
-              }
-              String minuto = medidas.ultimaModificacao.minute.toString();
-              if (minuto.length == 1) {
-                minuto = '0$minuto';
-              }
-              String segundo = medidas.ultimaModificacao.second.toString();
-              if (segundo.length == 1) {
-                segundo = '0$segundo';
-              }
-              final String textoUltimaModificacao =
-                  '''${medidas.ultimaModificacao.day} de ${meses[medidas.ultimaModificacao.month - 1]} de ${medidas.ultimaModificacao.year} às $hora:$minuto:$segundo''';
-
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MedidaScreen(
-                        medidaModels: [] /*medidasBase*/,
-                        editModel: medidas,
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.only(left: 28.0, right: 28.0),
-                  decoration: BoxDecoration(
-                    border: BoxBorder.fromLTRB(
-                      bottom: BorderSide(
-                        color: theme.colorScheme.outlineVariant,
-                      ),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 11.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          spacing: 8.0,
-                          children: [
-                            Icon(
-                              Icons.design_services_outlined,
-                              size: 22,
-                              color: theme.colorScheme.onSurfaceVariant,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: .6,
-                              children: [
-                                Text(
-                                  medidas.nome,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: theme.colorScheme.onSurface,
-                                  ),
-                                ),
-                                Text(
-                                  textoUltimaModificacao,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: theme.colorScheme.onSurfaceVariant,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Icon(
-                          Icons.file_upload_outlined,
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
+        );
+      },
+    ),
+  );
 }
 
 const appTitleWidget = Row(
@@ -467,4 +216,43 @@ const appTitleWidget = Row(
 
 PreferredSizeWidget appBarIFMoldes(BuildContext context) {
   return AppBar(title: appTitleWidget, automaticallyImplyLeading: true);
+}
+
+class TabelaDeMedidasModelListView extends StatelessWidget {
+  final List<TabelaDeMedidasModel> tabelas;
+
+  const new({super.key, required this.tabelas});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: ListView(
+            children: tabelaModelsExemplo
+                .map(
+                  (t) => ListTile(
+                    title: Text(t.nome),
+                    leading: Icon(Icons.design_services_outlined),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MedidaScreen(
+                            medidaModels: [] /*medidasBase*/,
+                            editModel: t,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
+    );
+  }
 }
