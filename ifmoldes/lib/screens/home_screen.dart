@@ -1,3 +1,4 @@
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ifmoldes/components/drawer.dart';
@@ -21,17 +22,24 @@ class _HomeScreenState extends State<HomeScreen> {
   int navbarIndex = 0;
   late List<Molde> moldes;
   late List<TabelaDeMedidasModel> medidas;
+  String searchBarQuery = '';
 
   @override
   Widget build(BuildContext context) {
+    const toolbarBaseHeight = 56.0;
+    const toolbarBottomPadding = 8.0;
     final theme = Theme.of(context);
 
     // TODO: Adicionar moldes carregados do banco
     moldes = moldesExemplo;
-    // Por padrão, começa na tela de moldes
+
+    // TODO: Adicionar medidas carregadas do banco
+    medidas = tabelaModelsExemplo;
+
+
     final conteudo = [
-      conteudoTelaMoldes(context: context, moldes: List.from(moldes)),
-      conteudoTelaMedidas(context: context, medidas: []),
+      conteudoTelaMoldes(context: context),
+      conteudoTelaMedidas(context: context),
     ][navbarIndex];
 
     return Scaffold(
@@ -40,7 +48,32 @@ class _HomeScreenState extends State<HomeScreen> {
       // Menu Lateral de Hambúrguer
       drawer: MainDrawer(),
       // Barra Superior
-      appBar: conteudo.appBar,
+      appBar: AppBar(
+        title: Text('IF Moldes'),
+        automaticallyImplyLeading: false,
+        automaticallyImplyActions: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.question_mark)),
+        ],
+        bottom: AppBar(
+          automaticallyImplyLeading: false,
+          title: Padding(
+            // Empurra a barra de busca um pouco para cima
+            padding: const EdgeInsets.only(bottom: toolbarBottomPadding),
+            child: SearchBar(
+              autoFocus: true,
+              shadowColor: WidgetStatePropertyAll(Colors.transparent),
+              onChanged: (newQuery) {
+                setState(() {
+                  searchBarQuery = newQuery;
+                });
+              },
+              hintText: 'Buscar',
+            ),
+          ),
+          toolbarHeight: toolbarBaseHeight + toolbarBottomPadding,
+        ),
+      ),
       // Corpo principal com rolagem ativada
       body: conteudo.body,
       // Barra Inferior
@@ -50,23 +83,24 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  ({PreferredSizeWidget appBar, Widget body, StatelessWidget? fab})
-  conteudoTelaMoldes({
+  ({Widget body, StatelessWidget? fab}) conteudoTelaMoldes({
     required BuildContext context,
-    required List<Molde> moldes,
   }) {
-    final GridMoldes gridMoldes = GridMoldes(moldes: moldes);
-    return (appBar: appBarIFMoldes(context), body: gridMoldes, fab: null);
+    final GridMoldes gridMoldes = GridMoldes(
+      moldes: moldes,
+      query: searchBarQuery,
+    );
+    return (body: gridMoldes, fab: null);
   }
 
-  ({PreferredSizeWidget appBar, Widget body, StatelessWidget? fab})
-  conteudoTelaMedidas({
+  ({Widget body, StatelessWidget? fab}) conteudoTelaMedidas({
     required BuildContext context,
-    required List<TabelaDeMedidasModel> medidas,
   }) {
     return (
-      appBar: appBarIFMoldes(context),
-      body: TabelaDeMedidasModelListView(tabelas: []),
+      body: TabelaDeMedidasModelListView(
+        tabelas: tabelaModelsExemplo,
+        query: searchBarQuery,
+      ),
       fab: FloatingActionButton(
         tooltip: 'Registrar medida',
         child: Icon(Icons.add),
@@ -108,84 +142,43 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class GridMoldes extends StatefulWidget {
-  const new({super.key, required this.moldes});
-
+class GridMoldes extends StatelessWidget {
   final List<Molde> moldes;
+  final String query;
 
-  @override
-  State<GridMoldes> createState() => _GridMoldesState();
-}
+  const new({super.key, required this.moldes, required this.query});
 
-class _GridMoldesState extends State<GridMoldes> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: GridView.builder(
-        itemCount: widget.moldes.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 0.8,
-        ),
-        itemBuilder: (context, index) {
-          final Molde molde = widget.moldes[index];
-          return AnimatedPatternCard(
-            molde: molde,
-            onTap: () {
-              // Navegação para a PatternScreen passando o nome da categoria
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => PatternScreen(molde)),
-              );
-            },
-          );
-        },
+      child: GridView.extent(
+        maxCrossAxisExtent: 200,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        childAspectRatio: .8,
+        children: moldes
+            .where(
+              (Molde molde) =>
+                  removeDiacritics(molde.modelo.toLowerCase())
+                      .contains(removeDiacritics(query.toLowerCase())),
+            )
+            .map(
+              (e) => AnimatedPatternCard(
+                molde: e,
+                onTap: () {
+                  // Navegação para a PatternScreen passando o nome da categoria
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PatternScreen(e)),
+                  );
+                },
+              ),
+            )
+            .toList(),
       ),
     );
   }
-
-  void filterMoldes(String value) {
-    setState(() {
-      /*var moldes = moldesBase
-          .where(
-            (Molde molde) =>
-                removeDiacritics(molde.modelo.toLowerCase())
-                    .contains(removeDiacritics(value.toLowerCase())) ||
-                removeDiacritics(molde.modelista.toLowerCase())
-                    .contains(removeDiacritics(value.toLowerCase())),
-          )
-          .toList();*/
-    });
-  }
-}
-
-(PreferredSizeWidget, Widget, StatelessWidget?) conteudoTelaMedidas({
-  required BuildContext context,
-  required ValueChanged<String> searchBarOnChanged,
-  required GlobalKey<ScaffoldState> scaffoldKey,
-  required List<TabelaDeMedidasModel> medidas_,
-}) {
-  // medidas = medidas_;
-  return (
-    appBarIFMoldes(context),
-
-    TabelaDeMedidasModelListView(tabelas: [] /* medidas */),
-    FloatingActionButton(
-      tooltip: 'Registrar medida',
-      child: Icon(Icons.add),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MedidaScreen(medidaModels: []),
-          ),
-        );
-      },
-    ),
-  );
 }
 
 const appTitleWidget = Row(
@@ -214,14 +207,11 @@ const appTitleWidget = Row(
   ],
 );
 
-PreferredSizeWidget appBarIFMoldes(BuildContext context) {
-  return AppBar(title: appTitleWidget, automaticallyImplyLeading: true);
-}
-
 class TabelaDeMedidasModelListView extends StatelessWidget {
   final List<TabelaDeMedidasModel> tabelas;
+  final String query;
 
-  const new({super.key, required this.tabelas});
+  const new({super.key, required this.tabelas, required this.query});
 
   @override
   Widget build(BuildContext context) {
@@ -231,6 +221,11 @@ class TabelaDeMedidasModelListView extends StatelessWidget {
         Expanded(
           child: ListView(
             children: tabelaModelsExemplo
+                .where(
+                  (TabelaDeMedidasModel t) =>
+                      removeDiacritics(t.nome.toLowerCase())
+                          .contains(removeDiacritics(query.toLowerCase())),
+                )
                 .map(
                   (t) => ListTile(
                     title: Text(t.nome),
