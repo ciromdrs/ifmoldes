@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS partes (
     
     FOREIGN KEY molde_id
     REFERENCES moldes(id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS passos (
@@ -37,4 +38,5 @@ CREATE TABLE IF NOT EXISTS passos (
 
     FOREIGN KEY parte_id
     REFERENCES partes(id)
+    ON DELETE CASCADE
 );
