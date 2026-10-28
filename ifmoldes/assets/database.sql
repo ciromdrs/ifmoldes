@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS tabelas_de_medidas (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nome VARCHAR(80) NOT NULL,
     data_criacao DATETIME NOT NULL,
-    ultima_modificacao DATETIME NOT NULL
+    ultima_modificacao DATETIME NOT NULL,
+    tabela JSON NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS moldes (
@@ -17,7 +18,7 @@ CREATE TABLE IF NOT EXISTS moldes (
     medidas_padrao JSON NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS  partes (
+CREATE TABLE IF NOT EXISTS partes (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nome VARCHAR(80) NOT NULL,
     quantidade_cortes INT NOT NULL,
