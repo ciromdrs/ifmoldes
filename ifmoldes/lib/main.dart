@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ifmoldes/screens/home_screen.dart'; // Import com o caminho da pasta screens
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-import 'dart:io';
 
-Future<void> main() async {
-  Database database = await openDatabase(
-    join(await getDatabasesPath(), 'database.db'),
-    onCreate: (Database db, int version) {
-      File arquivoBanco = File('../assets/database.sql');
-      String conteudo = arquivoBanco.readAsStringSync();
-      List<String> comandos = conteudo.split(';');
-
-      for (final comando in comandos) {
-        db.execute(comando);
-      }
-    }
-  );
-
+void main() async {
   runApp(const IFMoldesApp());
 }
 
