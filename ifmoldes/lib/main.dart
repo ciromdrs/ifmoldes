@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ifmoldes/screens/home_screen.dart'; // Import com o caminho da pasta screens
 
-void main() {
+void main() async {
   runApp(const IFMoldesApp());
 }
 
