@@ -10,17 +10,21 @@ class IFMoldesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF00CC4D),
+    );
     return MaterialApp(
       title: 'IF Moldes',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF00CC4D)),
+        colorScheme: colorScheme,
         textTheme: const TextTheme(
           labelLarge: TextStyle(fontWeight: FontWeight.w700),
           labelMedium: TextStyle(fontWeight: FontWeight.w500),
           labelSmall: TextStyle(fontWeight: FontWeight.w500),
         ),
+        appBarTheme: AppBarTheme(shadowColor: colorScheme.shadow),
       ),
       home: const HomeScreen(),
     );
