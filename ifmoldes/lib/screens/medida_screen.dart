@@ -164,8 +164,10 @@ class _MedidaScreenState extends State<MedidaScreen> {
                         ),
                         suffixText: 'cm',
                       ),
-                      validator: (value) => double.tryParse(value ?? '') != null
-                          ? null
+                      validator: (value) => 
+                          value == null ? null
+                          : value.trim() == '' ? null
+                          : double.tryParse(value.trim()) != null ? null
                           : 'Insira uma medida válida. Ex.: 26.5',
                     ),
                   );
