@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "br.edu.ifrn.ca.ifmoldes" // Substitua pelo ID real do seu pacote se souber
-    compileSdk = 35 // Versão recomendada para o AGP 9
+    compileSdk = 36 // Versão recomendada para o AGP 9
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
