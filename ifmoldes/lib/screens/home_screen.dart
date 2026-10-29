@@ -69,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
             // Empurra a barra de busca um pouco para cima
             padding: const EdgeInsets.only(bottom: toolbarBottomPadding),
             child: SearchBar(
-              autoFocus: true,
               shadowColor: WidgetStatePropertyAll(Colors.transparent),
               onChanged: (newQuery) {
                 setState(() {
