@@ -1,97 +1,66 @@
 import 'package:flutter/material.dart';
 
 import 'package:ifmoldes/components/back_bar.dart';
+import 'package:ifmoldes/components/link.dart';
+import 'package:ifmoldes/components/logo.dart';
+
+const String isencaoDeResponsabilidadeText =
+    'Aplicativo desenvolvido por docentes e discentes do IFRN para fins educacionais e acadêmicos. Não se trata de um aplicativo de prestação de serviços públicos oficiais do Governo Federal.';
 
 class SobreScreen extends StatelessWidget {
   const SobreScreen({super.key});
 
-  final String isencaoDeResponsabilidadeText = 'Aplicativo desenvolvido por docentes e discentes do IFRN para fins educacionais e acadêmicos. Não se trata de um aplicativo de prestação de serviços públicos oficiais do Governo Federal.';
-
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     final backBar = BackBar(title: 'Sobre', context: context);
-
-    final logoWidth = mediaQuery.size.width * .35;
-
-    const double subtitlesSize = 24;
-    const double textsSize = 16;
-
-    Widget itemList(String text) {
-      return Padding(
-        padding: EdgeInsets.only(left: 10.0),
-        child: Row(
-          spacing: 12.0,
-          children: [
-            Text('•', style: TextStyle(fontSize: textsSize + 8)),
-            Text(text, style: TextStyle(fontSize: textsSize)),
-          ],
-        )
-      );
-    }
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: backBar,
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-              child: Image.asset(
-                'assets/logo-96dpi.png',
-                width: logoWidth,
-                height: logoWidth
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(child: imgIFMoldes),
+              Center(child: LogoIFMoldes(fontSize: theme.textTheme.headlineLarge!.fontSize, baselineFix: 34,)),
+              Center(child: Text('Versão 1.0.0', style: theme.textTheme.bodySmall)),
+              SizedBox(height: 12,), // Apenas um pouco de gap
+              Text(
+                'Isenção de responsabilidade',
+                style: theme.textTheme.titleLarge,
               ),
-            ),
-            Text('IF Moldes', style: TextStyle(fontSize: subtitlesSize)),
-            Text('Versão 1.0.0', style: TextStyle(fontSize: 10)),
-            Padding(
-              padding: EdgeInsets.only(top: 12, bottom: 6, left: 18, right: 18),
-              child: SizedBox(
-                width: mediaQuery.size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 2.0,
-                  children: [
-                    Text('Isenção de responsabilidade', style: TextStyle(fontSize: subtitlesSize)),
-                    Text(isencaoDeResponsabilidadeText, style: TextStyle(fontSize: textsSize))
-                  ],
-                )
-              )
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 12, bottom: 6, left: 18, right: 18),
-              child: SizedBox(
-                width: mediaQuery.size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 2.0,
-                  children: [
-                    Text('Links úteis', style: TextStyle(fontSize: subtitlesSize)),
-                    itemList('Repositório oficial'),
-                    itemList('Licença'),
-                    itemList('Política de Privacidade'),
-                  ],
-                )
-              )
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 12, bottom: 6, left: 18, right: 18),
-              child: SizedBox(
-                width: mediaQuery.size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 6.0,
-                  children: [
-                    Text('Recursos de terceiros', style: TextStyle(fontSize: subtitlesSize)),
-                    itemList('Desenvolvido com Material Design.'),
-                  ],
-                )
-              )
-            ),
-          ]
+              Text(isencaoDeResponsabilidadeText),
+              Text('Links úteis', style: theme.textTheme.titleLarge),
+              Link(
+                text: 'Repositório oficial',
+                destination: 'https://github.com/ciromdrs/ifmoldes',
+              ),
+              Link(
+                text: 'Licença',
+                destination:
+                    'https://github.com/ciromdrs/ifmoldes/blob/main/LICENSE',
+              ),
+              Link(
+                text: 'Política de Privacidade',
+                destination: 'https://example.com',
+              ),
+              Text('Recursos de terceiros', style: theme.textTheme.titleLarge),
+              Wrap(
+                children: [
+                  Text('Desenvolvido com '),
+                  Link(
+                    text: 'Material Design.',
+                    destination: 'https://m3.material.io/',
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-      )
+      ),
     );
   }
 }
