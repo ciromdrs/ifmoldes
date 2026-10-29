@@ -36,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: Adicionar medidas carregadas do banco
     medidas = tabelaModelsExemplo;
 
-
     final conteudo = [
       conteudoTelaMoldes(context: context),
       conteudoTelaMedidas(context: context),
@@ -78,11 +77,16 @@ class _HomeScreenState extends State<HomeScreen> {
               hintText: 'Buscar',
             ),
           ),
+          // Necessário para não cortar o conteúdo da barra de busca
           toolbarHeight: toolbarBaseHeight + toolbarBottomPadding,
         ),
       ),
       // Corpo principal com rolagem ativada
-      body: conteudo.body,
+      body: SingleChildScrollView(
+        padding:
+            EdgeInsets.symmetric(horizontal: 16) + EdgeInsets.only(bottom: 16),
+        child: conteudo.body,
+      ),
       // Barra Inferior
       bottomNavigationBar: _navbar(context, selectedIndex: navbarIndex),
       // Botão de ação flutuante (FAB)
@@ -157,33 +161,32 @@ class GridMoldes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: GridView.extent(
-        maxCrossAxisExtent: 200,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        childAspectRatio: .8,
-        children: moldes
-            .where(
-              (Molde molde) =>
-                  removeDiacritics(molde.modelo.toLowerCase())
-                      .contains(removeDiacritics(query.toLowerCase())),
-            )
-            .map(
-              (e) => AnimatedPatternCard(
-                molde: e,
-                onTap: () {
-                  // Navegação para a PatternScreen passando o nome da categoria
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PatternScreen(e)),
-                  );
-                },
-              ),
-            )
-            .toList(),
-      ),
+    return GridView.extent(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      maxCrossAxisExtent: 200,
+      mainAxisSpacing: 10,
+      crossAxisSpacing: 10,
+      childAspectRatio: .8,
+      children: moldes
+          .where(
+            (Molde molde) =>
+                removeDiacritics(molde.modelo.toLowerCase())
+                    .contains(removeDiacritics(query.toLowerCase())),
+          )
+          .map(
+            (e) => AnimatedPatternCard(
+              molde: e,
+              onTap: () {
+                // Navegação para a PatternScreen passando o nome da categoria
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PatternScreen(e)),
+                );
+              },
+            ),
+          )
+          .toList(),
     );
   }
 }
@@ -222,39 +225,34 @@ class TabelaDeMedidasModelListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: ListView(
-            children: tabelaModelsExemplo
-                .where(
-                  (TabelaDeMedidasModel t) =>
-                      removeDiacritics(t.nome.toLowerCase())
-                          .contains(removeDiacritics(query.toLowerCase())),
-                )
-                .map(
-                  (t) => ListTile(
-                    title: Text(t.nome),
-                    leading: Icon(Icons.design_services_outlined),
-                    trailing: Icon(Icons.chevron_right),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MedidaScreen(
-                            medidaModels: [] /*medidasBase*/,
-                            editModel: t,
-                          ),
-                        ),
-                      );
-                    },
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: tabelaModelsExemplo
+          .where(
+            (TabelaDeMedidasModel t) =>
+                removeDiacritics(t.nome.toLowerCase())
+                    .contains(removeDiacritics(query.toLowerCase())),
+          )
+          .map(
+            (t) => ListTile(
+              title: Text(t.nome),
+              leading: Icon(Icons.design_services_outlined),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MedidaScreen(
+                      medidaModels: [] /*medidasBase*/,
+                      editModel: t,
+                    ),
                   ),
-                )
-                .toList(),
-          ),
-        ),
-      ],
+                );
+              },
+            ),
+          )
+          .toList(),
     );
   }
 }
