@@ -42,7 +42,7 @@ class _MedidaScreenState extends State<MedidaScreen> {
     }
 
     if (editModel != null) {
-      title = 'Editar medida ${editModel!.nome}';
+      title = 'Editar medida';
       nomeController.text = editModel!.nome;
     }
   }
@@ -50,7 +50,8 @@ class _MedidaScreenState extends State<MedidaScreen> {
   void criarMedida() {
     TabelaDeMedidas tabela = TabelaDeMedidas({});
     for (final medida in MedidasPadrao.toList()) {
-      if (medidasControllers[medida] != null && medidasControllers[medida]!.text.isNotEmpty) {
+      if (medidasControllers[medida] != null &&
+          medidasControllers[medida]!.text.isNotEmpty) {
         tabela[medida] = double.parse(medidasControllers[medida]!.text);
       }
     }
@@ -59,7 +60,7 @@ class _MedidaScreenState extends State<MedidaScreen> {
       nome: nomeController.text,
       tabela: tabela,
       dataCriacao: DateTime.now(),
-      ultimaModificacao: DateTime.now()
+      ultimaModificacao: DateTime.now(),
     );
 
     setState(() {
@@ -72,12 +73,14 @@ class _MedidaScreenState extends State<MedidaScreen> {
       medidaModels.remove(editModel);
       for (final String medida in listaDeMedidas) {
         if (medidasControllers[medida]!.text.isNotEmpty) {
-          editModel!.tabela[medida] = double.parse(medidasControllers[medida]!.text);
+          editModel!.tabela[medida] = double.parse(
+            medidasControllers[medida]!.text,
+          );
         } else {
           editModel!.tabela.remove(medida);
         }
       }
-      editModel!.nome = nomeController.text;
+      editModel!.nome = nomeController.text.trim();
       editModel!.ultimaModificacao = DateTime.now();
       medidaModels.add(editModel!);
     });
@@ -88,88 +91,88 @@ class _MedidaScreenState extends State<MedidaScreen> {
     final ThemeData theme = Theme.of(context);
 
     return Scaffold(
-      appBar: BackBar(
-        title: title,
-        context: context
-      ),
+      appBar: BackBar(title: title, context: context),
 
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 18.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Form(
-                    key: formKey,
+      body: SingleChildScrollView(
+        padding:
+            EdgeInsets.symmetric(horizontal: 16) + EdgeInsets.only(bottom: 16),
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: nomeController,
+                validator: (value) {
+                  if (value!.trim().isEmpty) {
+                    return 'Insira um nome para a medida';
+                  }
+                  return null;
+                },
+                style: theme.textTheme.headlineMedium,
+                /*
+                TODO: Descomentar quando implementar o suffixIcon que desaparece.
+                onChanged: (value) {
+                  // Necessário redesenhar o componente para o suffixIcon aparecer
+                  setState(() {});
+                },*/
+                decoration: InputDecoration(
+                  label: Text('Nome'),
+                  filled: false,
+                  contentPadding: EdgeInsets.symmetric(vertical: 8),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: theme.colorScheme.error),
+                  ),
+                  suffixIcon:
+                      /* TODO: Descomentar quando implementar o suffixIcon que desaparece.
+                      nomeController.text.isEmpty
+                      ? SizedBox.fromSize(size: Size(1, 1))
+                      : */
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        onPressed: () {
+                          nomeController.text = '';
+                          /* TODO: Descomentar quando implementar o suffixIcon que desaparece.
+                          setState(() {
+                            nomeController.text = '';
+                          });*/
+                        },
+                      ),
+                ),
+              ),
+              ListView(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: MedidasPadrao.toList().map((m) {
+                  final TextEditingController controller =
+                      medidasControllers[m]!;
+
+                  return Padding(
+                    padding: EdgeInsets.only(top: 8),
                     child: TextFormField(
-                      controller: nomeController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Insira um nome para a medida';
-                        }
-                        return null;
-                      },
+                      controller: controller,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        label: Text('Nome da medida'),
+                        label: Text(m),
                         fillColor: theme.colorScheme.surfaceContainerHighest,
                         filled: true,
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: theme.colorScheme.error
-                          )
-                        )
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            controller.text = '';
+                          },
+                          icon: Icon(Icons.close),
+                        ),
+                        suffixText: 'cm',
                       ),
-                    )
-                  )
-                ),
-                IconButton(
-                  onPressed: () {
-                    nomeController.text = '';
-                  },
-                  icon: Icon(Icons.cancel_outlined)
-                )
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text('Medidas corporais', style: theme.textTheme.titleLarge)
-            ),
-            Expanded(
-              child: ListView.separated(
-                itemCount: listaDeMedidas.length,
-                separatorBuilder: (context, index) {
-                  return SizedBox(height: 12);
-                },
-                itemBuilder: (context, index) {
-                  final TextEditingController controller = medidasControllers[listaDeMedidas[index]]!;
-
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: controller,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            label: Text(listaDeMedidas[index]),
-                            fillColor: theme.colorScheme.surfaceContainerHighest,
-                            filled: true,
-                          ),
-                        )
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          controller.text = '';
-                        },
-                        icon: Icon(Icons.cancel_outlined)
-                      )
-                    ]
+                      validator: (value) => double.tryParse(value ?? '') != null
+                          ? null
+                          : 'Insira uma medida válida. Ex.: 26.5',
+                    ),
                   );
-                },
-              )
-            )
-          ]
+                }).toList(),
+              ),
+            ],
+          ),
         ),
       ),
 
@@ -188,7 +191,7 @@ class _MedidaScreenState extends State<MedidaScreen> {
             criarMedida();
           }
           Navigator.pop(context);
-        }
+        },
       ),
     );
   }
