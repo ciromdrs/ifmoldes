@@ -9,6 +9,8 @@ import 'package:ifmoldes/molde.dart';
 import 'package:ifmoldes/screens/medida_screen.dart';
 import 'package:ifmoldes/screens/pattern_screen.dart';
 import 'package:ifmoldes/screens/sobre_screen.dart';
+import 'package:ifmoldes/components/logo.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true,
       // Barra Superior
       appBar: AppBar(
-        title: Text('IF Moldes'),
+        title: LogoIFMoldes(),
         automaticallyImplyLeading: false,
         automaticallyImplyActions: true,
         actions: [
