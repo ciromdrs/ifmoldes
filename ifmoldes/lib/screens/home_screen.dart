@@ -1,7 +1,6 @@
 import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 
-import 'package:ifmoldes/components/drawer.dart';
 import 'package:ifmoldes/components/pattern_card.dart';
 import 'package:ifmoldes/data/medidas.dart';
 import 'package:ifmoldes/data/moldes.dart';
@@ -9,6 +8,7 @@ import 'package:ifmoldes/models.dart';
 import 'package:ifmoldes/molde.dart';
 import 'package:ifmoldes/screens/medida_screen.dart';
 import 'package:ifmoldes/screens/pattern_screen.dart';
+import 'package:ifmoldes/screens/sobre_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,15 +45,22 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       extendBody: true,
-      // Menu Lateral de Hambúrguer
-      drawer: MainDrawer(),
       // Barra Superior
       appBar: AppBar(
         title: Text('IF Moldes'),
         automaticallyImplyLeading: false,
         automaticallyImplyActions: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.question_mark)),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SobreScreen()),
+              );
+            },
+            icon: Icon(Icons.question_mark),
+            tooltip: 'Sobre',
+          ),
         ],
         bottom: AppBar(
           automaticallyImplyLeading: false,
