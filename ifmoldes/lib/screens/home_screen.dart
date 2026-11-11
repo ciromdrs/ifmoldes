@@ -140,8 +140,8 @@ class _HomeScreenState extends State<HomeScreen> {
       elevation: 1,
       destinations: [
         NavigationDestination(
-          icon: Icon(Icons.checkroom_outlined),
-          selectedIcon: Icon(Icons.checkroom_sharp),
+          icon: ImageIcon(AssetImage('assets/icons/apparel_outlined.png')),
+          selectedIcon: ImageIcon(AssetImage('assets/icons/apparel_filled.png')),
           label: 'Moldes',
         ),
         NavigationDestination(
