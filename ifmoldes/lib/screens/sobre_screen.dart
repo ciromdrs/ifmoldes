@@ -13,7 +13,7 @@ class SobreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final backBar = BackBar(title: 'Sobre', context: context);
     final theme = Theme.of(context);
-    const gap = SizedBox(height: 8,);
+    const gap = SizedBox(height: 8,); // Pequeno espaço vertical
 
     return Scaffold(
       appBar: backBar,
@@ -25,7 +25,7 @@ class SobreScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 4, 
             children: [
-              Center(child: Image.asset('assets/logo-96dpi.png', height: 96,)),
+              Center(child: Image.asset('assets/icon-96dpi.png', height: 96,)),
               gap,
               Center(child: Image.asset('assets/logo.png', height: 24,)),
               Center(child: Text('Versão 1.0.0', style: theme.textTheme.bodySmall)),
